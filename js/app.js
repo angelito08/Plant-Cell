@@ -24,7 +24,7 @@ class PlantCell3DApp {
     this.container = document.getElementById('webgl-canvas-container');
     this.hudCards = document.querySelectorAll('.hud-card');
     this.dockPills = document.querySelectorAll('.dock-pill');
-    this.stepTriggers = document.querySelectorAll('.scroll-step-trigger');
+    this.stepTriggers = document.querySelectorAll('.scroll-step-trigger, .quiz-section, #step-quiz');
     this.progressFill = document.getElementById('progress-fill');
     this.zoomHud = document.getElementById('zoom-status-hud');
     this.zoomText = document.getElementById('zoom-stage-name');
@@ -1381,13 +1381,13 @@ class PlantCell3DApp {
   initScrollEngine() {
     const observerOptions = {
       root: null,
-      rootMargin: '-25% 0px -25% 0px',
-      threshold: [0.15, 0.4, 0.7]
+      rootMargin: '-15% 0px -15% 0px',
+      threshold: [0.1, 0.25, 0.5]
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && entry.intersectionRatio > 0.25) {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.08) {
           const stepKey = entry.target.dataset.step;
           if (stepKey && stepKey !== this.activeStepKey) {
             this.activateStep(stepKey);
@@ -1398,13 +1398,18 @@ class PlantCell3DApp {
 
     this.stepTriggers.forEach((trigger) => observer.observe(trigger));
 
-    // Scroll Progress Bar Update
+    // Scroll Progress Bar Update & Quiz Runway Trigger
     window.addEventListener('scroll', () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
       if (this.progressFill) {
         this.progressFill.style.width = `${progress}%`;
+      }
+
+      // Seamless fallback: when user scrolls near the end of the page to the quiz
+      if (progress > 94 && this.activeStepKey !== 'quiz') {
+        this.activateStep('quiz');
       }
     }, { passive: true });
   }
@@ -1563,6 +1568,10 @@ class PlantCell3DApp {
         const targetEl = document.getElementById(targetId);
         if (targetEl) {
           targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        const stepKey = pill.dataset.step;
+        if (stepKey) {
+          this.activateStep(stepKey);
         }
       });
     });

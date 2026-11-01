@@ -155,3 +155,19 @@ Al presentar los organelos en 3D, estos requerían mayor textura táctil/biológ
    * El organelo en foco recupera el 100% de opacidad y recibe un pulso suave de bioluminiscencia viva.
    * Se implementó el método `cacheOriginalOrganelleMaterials()` para preservar de manera inmutable las propiedades originales de los materiales y evitar problemas de opacidad residual durante el scroll.
 
+---
+
+## 7. Resolución de Incidencia: Ocultamiento de Tarjeta de Ribosomas en Sección de Quiz
+
+### 7.1 Causa Raíz
+1. La sección interactiva del Quiz (`#step-quiz`) poseía únicamente la clase `quiz-section`, mientras que el motor de sincronización (`this.stepTriggers`) solo seleccionaba elementos con la clase `.scroll-step-trigger`.
+2. Como resultado, `#step-quiz` nunca fue observado por el `IntersectionObserver`, impidiendo que se llamara a `activateStep('quiz')` tanto al hacer scroll como al hacer clic en el botón del dock.
+3. El estado activo permanecía estancado en `'ribosomes'`, manteniendo la tarjeta HUD flotante de los Ribosomas con la clase `.is-active` visible y sobrepuesta sobre las preguntas del quiz.
+
+### 7.2 Plan de Solución
+1. Ampliar el selector de disparadores de scroll en `js/app.js` a `document.querySelectorAll('.scroll-step-trigger, #step-quiz, .quiz-section')`.
+2. Agregar un disparador de scroll complementario o registrar directamente el elemento `#step-quiz` en el observer con un margen de intersección apropiado.
+3. En `initPresenterDock()`, invocar explícitamente `this.activateStep(pill.dataset.step)` al hacer clic sobre cualquier píldora de navegación, garantizando respuesta instantánea del HUD, ocultado de tarjetas y reencuadre de cámara hacia la vista panorámica del quiz.
+4. Validar visualmente en navegador mediante subagente que al llegar al Quiz la tarjeta de los Ribosomas se oculte por completo y la interfaz del quiz quede totalmente despejada.
+
+
