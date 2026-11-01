@@ -1,0 +1,947 @@
+/* ==========================================================================
+   Plant Cell Scrollytelling Presentation - Stylesheet
+   Theme: Bioluminescent Scientific Dark Mode (Optimized for Tablets & Display)
+   All code symbols, variables, and comments in English
+   ========================================================================== */
+
+:root {
+  /* Color Palette - Bioluminescent Botanical */
+  --bg-primary: #080d11;
+  --bg-secondary: #0d161d;
+  --bg-surface: rgba(16, 27, 36, 0.75);
+  --bg-surface-elevated: rgba(22, 38, 50, 0.85);
+  --bg-card: rgba(14, 25, 33, 0.88);
+  --border-subtle: rgba(72, 199, 142, 0.18);
+  --border-focus: rgba(72, 230, 160, 0.55);
+
+  /* Organelle Neon Accent Colors */
+  --accent-cell-wall: #38ef7d;
+  --accent-membrane: #00f2fe;
+  --accent-cytoplasm: #4facfe;
+  --accent-nucleus: #d946ef;
+  --accent-chloroplast: #10b981;
+  --accent-vacuole: #06b6d4;
+  --accent-mitochondria: #f97316;
+  --accent-golgi: #ec4899;
+  --accent-er: #8b5cf6;
+  --accent-ribosomes: #facc15;
+
+  /* Typography */
+  --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+
+  /* Text Colors */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-highlight: #38ef7d;
+
+  /* Shadows and Glows */
+  --glow-emerald: 0 0 25px rgba(56, 239, 125, 0.35);
+  --glow-cyan: 0 0 25px rgba(0, 242, 254, 0.35);
+  --glow-violet: 0 0 25px rgba(217, 70, 239, 0.35);
+  --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+
+  /* Layout and Geometry */
+  --header-height: 64px;
+  --dock-height: 56px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 9999px;
+
+  /* Animation Timings */
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   CSS Reset & Base Typography
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: 
+    radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+    var(--bg-primary);
+  background-attachment: fixed;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Header and Progress Bar
+   ========================================================================== */
+
+.presentation-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background: rgba(8, 13, 17, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  z-index: 100;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-size: 1.1rem;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+}
+
+.brand-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #38ef7d, #00f2fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-left: 0.4rem;
+  padding: 0.15rem 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-pill);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.action-btn:hover {
+  background: rgba(56, 239, 125, 0.15);
+  border-color: var(--border-focus);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #10b981, #00f2fe, #d946ef);
+  box-shadow: 0 0 8px rgba(0, 242, 254, 0.7);
+  transition: width 0.1s linear;
+}
+
+/* ==========================================================================
+   Hero Intro Section
+   ========================================================================== */
+
+.hero-section {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: calc(var(--header-height) + 3rem) 1.5rem 4rem;
+  position: relative;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background: rgba(56, 239, 125, 0.1);
+  border: 1px solid rgba(56, 239, 125, 0.3);
+  border-radius: var(--radius-pill);
+  color: var(--accent-cell-wall);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 20px rgba(56, 239, 125, 0.2);
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.03em;
+}
+
+.hero-title span {
+  background: linear-gradient(135deg, #a7f3d0, #38ef7d, #00f2fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.hero-description {
+  max-width: 680px;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  padding: 0.85rem 1.8rem;
+  border-radius: var(--radius-pill);
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px -6px rgba(16, 185, 129, 0.6);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -6px rgba(16, 185, 129, 0.8);
+}
+
+.scroll-indicator-cue {
+  margin-top: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  animation: floatBounce 2.4s infinite ease-in-out;
+}
+
+.scroll-indicator-cue svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--accent-cell-wall);
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+/* ==========================================================================
+   Scrollytelling Core Layout
+   ========================================================================== */
+
+.scrolly-container {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 0 1rem;
+}
+
+/* Split screen on tablet landscape and desktop */
+@media (min-width: 1024px) {
+  .scrolly-container {
+    grid-template-columns: 1.15fr 0.85fr;
+    column-gap: 2rem;
+    padding: 0 2rem;
+  }
+}
+
+/* Pinned Visual Graphic Container */
+.graphic-viewport {
+  position: sticky;
+  top: calc(var(--header-height) + 1rem);
+  height: calc(100vh - var(--header-height) - 5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.cell-stage {
+  width: 100%;
+  height: 100%;
+  max-height: 640px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.cell-svg-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.85));
+}
+
+.cell-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 580px;
+  max-height: 580px;
+  transform-origin: center center;
+  transition: transform var(--transition-slow);
+  overflow: visible;
+}
+
+/* Active Indicator Badge over Stage */
+.stage-status-badge {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(14, 25, 33, 0.9);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(8px);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  pointer-events: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  transition: all var(--transition-fast);
+}
+
+.stage-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cell-wall);
+  box-shadow: 0 0 8px var(--accent-cell-wall);
+}
+
+/* ==========================================================================
+   SVG Organelle Interactive States & Styling
+   ========================================================================== */
+
+.organelle-group {
+  cursor: pointer;
+  transform-origin: center center;
+  transition: opacity var(--transition-smooth), 
+              filter var(--transition-smooth), 
+              transform var(--transition-smooth);
+}
+
+.organelle-group:hover {
+  filter: drop-shadow(0 0 14px currentColor) brightness(1.2);
+}
+
+/* State: Dimmed non-focused organelles */
+.organelle-group.is-dimmed {
+  opacity: 0.22;
+  filter: grayscale(40%) contrast(0.8);
+}
+
+/* State: Active focused organelle */
+.organelle-group.is-active {
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 20px currentColor) brightness(1.28) !important;
+  transform: scale(1.04);
+}
+
+/* Specialized Organelle Highlights */
+#organelle-cell-wall.is-active {
+  stroke-width: 18;
+  filter: drop-shadow(0 0 24px #38ef7d) brightness(1.3);
+}
+
+#organelle-vacuole.is-active {
+  filter: drop-shadow(0 0 30px #06b6d4) brightness(1.25);
+}
+
+#organelle-chloroplasts.is-active {
+  filter: drop-shadow(0 0 26px #10b981) brightness(1.4);
+}
+
+#organelle-nucleus.is-active {
+  filter: drop-shadow(0 0 28px #d946ef) brightness(1.35);
+}
+
+#organelle-mitochondria.is-active {
+  filter: drop-shadow(0 0 24px #f97316) brightness(1.35);
+}
+
+#organelle-golgi.is-active {
+  filter: drop-shadow(0 0 22px #ec4899) brightness(1.35);
+}
+
+#organelle-er.is-active {
+  filter: drop-shadow(0 0 22px #8b5cf6) brightness(1.35);
+}
+
+#organelle-ribosomes.is-active {
+  filter: drop-shadow(0 0 20px #facc15) brightness(1.6);
+}
+
+/* Animated subtle pulse for active organelle */
+@keyframes organellePulse {
+  0%, 100% { transform: scale(1.02); }
+  50% { transform: scale(1.06); }
+}
+
+.organelle-group.is-active {
+  animation: organellePulse 2.8s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   Scrolly Story Track & Cards
+   ========================================================================== */
+
+.story-track {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 0 10rem;
+}
+
+.story-step {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.story-card {
+  width: 100%;
+  max-width: 540px;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.2rem;
+  box-shadow: var(--card-shadow);
+  position: relative;
+  transition: all var(--transition-smooth);
+  opacity: 0.35;
+  transform: translateY(20px) scale(0.97);
+}
+
+/* When the step is in viewport */
+.story-step.is-current .story-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  border-color: var(--active-card-color, var(--border-focus));
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8),
+              0 0 30px -10px var(--active-card-color, rgba(56, 239, 125, 0.3));
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.step-number {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+}
+
+.card-analogy-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: rgba(56, 239, 125, 0.12);
+  color: var(--card-theme-color, var(--accent-cell-wall));
+  border: 1px solid currentColor;
+}
+
+.card-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.card-quick-summary {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--card-theme-color, #a7f3d0);
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+.card-details-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-details-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.card-details-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--card-theme-color, var(--accent-cell-wall));
+  font-weight: 800;
+}
+
+.card-fun-fact {
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 3px solid var(--card-theme-color, var(--accent-cell-wall));
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 0.85rem 1rem;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+}
+
+.fun-fact-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  color: var(--card-theme-color, var(--accent-cell-wall));
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+/* ==========================================================================
+   Presenter Dock / Floating Navigation
+   ========================================================================== */
+
+.presenter-dock {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 18, 24, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 0.35rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  z-index: 90;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  max-width: 95vw;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.presenter-dock::-webkit-scrollbar {
+  display: none;
+}
+
+.dock-pill {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-main);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.dock-pill:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.dock-pill.is-active {
+  background: var(--pill-color, var(--accent-cell-wall));
+  color: #04100c;
+  font-weight: 700;
+  box-shadow: 0 0 12px var(--pill-color, rgba(56, 239, 125, 0.5));
+}
+
+/* ==========================================================================
+   Interactive Quiz Section ("Desafío Celular")
+   ========================================================================== */
+
+.quiz-section {
+  max-width: 900px;
+  margin: 6rem auto 8rem;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(180deg, rgba(16, 27, 36, 0.8) 0%, rgba(10, 18, 24, 0.95) 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+  text-align: center;
+  position: relative;
+  z-index: 25;
+}
+
+.quiz-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  background: rgba(250, 204, 21, 0.12);
+  border: 1px solid rgba(250, 204, 21, 0.3);
+  border-radius: var(--radius-pill);
+  color: var(--accent-ribosomes);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.quiz-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+  background: linear-gradient(135deg, #facc15, #38ef7d, #00f2fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.quiz-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+}
+
+.quiz-card {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  text-align: left;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.quiz-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.quiz-question-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.quiz-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.quiz-option-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quiz-option-btn:hover:not(:disabled) {
+  background: rgba(56, 239, 125, 0.1);
+  border-color: var(--accent-cell-wall);
+  transform: translateX(4px);
+}
+
+.quiz-option-btn.is-correct {
+  background: rgba(16, 185, 129, 0.25) !important;
+  border-color: #10b981 !important;
+  color: #6ee7b7 !important;
+}
+
+.quiz-option-btn.is-incorrect {
+  background: rgba(239, 68, 68, 0.25) !important;
+  border-color: #ef4444 !important;
+  color: #fca5a5 !important;
+}
+
+.quiz-feedback {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  display: none;
+}
+
+.quiz-feedback.is-visible {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.quiz-feedback.is-correct {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #a7f3d0;
+}
+
+.quiz-feedback.is-incorrect {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fecaca;
+}
+
+.quiz-footer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.quiz-next-btn {
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  border: none;
+  color: #fff;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: none;
+  transition: all var(--transition-fast);
+}
+
+.quiz-next-btn.is-visible {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.quiz-score-card {
+  display: none;
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+
+.quiz-score-card.is-visible {
+  display: block;
+}
+
+.quiz-score-number {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #38ef7d, #00f2fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.presentation-footer {
+  text-align: center;
+  padding: 3rem 1.5rem 6rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-primary);
+}
+
+.footer-credit {
+  margin-top: 0.5rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Animations & Keyframes
+   ========================================================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Responsive Adaptations (Tablets & Mobile)
+   ========================================================================== */
+
+/* Tablet Portrait & Mobile (< 1024px) */
+@media (max-width: 1023px) {
+  .graphic-viewport {
+    position: sticky;
+    top: var(--header-height);
+    height: 48vh;
+    padding-top: 0.5rem;
+    background: radial-gradient(circle at center, rgba(16, 27, 36, 0.92) 0%, rgba(8, 13, 17, 0.96) 100%);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .cell-stage {
+    max-height: 100%;
+  }
+
+  .cell-svg {
+    max-width: 320px;
+    max-height: 320px;
+  }
+
+  .story-track {
+    padding-top: 1rem;
+  }
+
+  .story-step {
+    min-height: 60vh;
+    padding: 1.5rem 0;
+  }
+
+  .story-card {
+    padding: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .presenter-dock {
+    bottom: 0.75rem;
+    padding: 0.25rem 0.4rem;
+  }
+
+  .dock-pill {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.6rem;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .organelle-group.is-active {
+    animation: none !important;
+  }
+  
+  .scroll-indicator-cue {
+    animation: none !important;
+  }
+}
