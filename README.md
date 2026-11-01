@@ -15,29 +15,43 @@ An interactive, high-performance 3D web presentation created for **Luna María E
    - Starts with a stylized 3D potted plant with glowing leaf blades and morning dew drops.
    - Scrolling triggers a cinematic microscope zoom diving through the leaf cuticle and plant tissue directly into the cellular cutaway.
 
-2. **Full-Viewport 3D Plant Cell Cutaway:**
-   - Real 3D volume, thick beveled walls showing structural layers, translucent glassy vacuole, spherical nucleus with glowing nucleolus, chloroplast discs with thylakoid grana stacks, mitochondria, Golgi cisternae, and golden ribosomes.
+2. **Full-Viewport 3D Plant Cell Cutaway & Anatomical Windows:**
+   - Real 3D volume, thick beveled walls showing structural layers, translucent glassy vacuole, spherical nucleus with glowing nucleolus, chloroplast discs with internal thylakoid grana stacks, mitochondria with cristae rings, Golgi cisternae, and golden ribosomes.
    - Built on pure Three.js with hardware-accelerated PBR shaders and dynamic point lights (emerald, cyan, violet, amber).
 
-3. **Floating HUD Narrative Cards (On-Demand Appearance):**
+3. **Procedural Biological Textures (Zero-Download Bump & Roughness Maps):**
+   - High-resolution algorithmic textures rendered in-memory via HTML5 Canvas (100% offline, zero network requests):
+     - *Cell Wall:* Interwoven cellulose microfibrils with physical bump relief.
+     - *Plasma Membrane:* Phospholipid bilayer grain surface.
+     - *Central Vacuole:* Fluid aqueous caustics with refractive specular reflections.
+     - *Nucleus & Nucleolus:* Nuclear pore complexes and condensed chromatin stipples.
+     - *Chloroplasts & Mitochondria:* Thylakoid grana striations and mitochondrial cristae folds.
+     - *Golgi & Reticulum:* Tubulo-laminar membrane cisternae with secretory vesicles.
+
+4. **Dynamic Spotlight, 3D Halo Beacon & Selective Dimming:**
+   - **Cinematic Spotlight Tracking:** A calibrated 3D `SpotLight` and `PointLight` pair glides to the active organelle in 3D coordinates, bathing it in focused illumination.
+   - **Bioluminescent 3D Beacon:** A dual-concentric rotating ring halo with orbiting diamond pips hovers above the active organelle as a visual target guide.
+   - **Selective Background Dimming:** Inactive organelles automatically reduce opacity to 22% and dim their emissive intensity, creating high contrast that directs the audience's attention straight to the discussed organelle.
+
+5. **Floating HUD Narrative Cards (On-Demand Appearance):**
    - Cards smoothly fade in and elevate when arriving at an organelle, and fade out cleanly during camera transitions between organelles, leaving the 3D view completely unobstructed.
 
-4. **Interactive 3D Tilt & Orientation:**
+6. **Interactive 3D Tilt & Orientation:**
    - The student presenter or teacher can gently touch or drag on the screen to tilt the cell in 3D (+- 25 degrees) to explore its volume from custom angles.
 
-5. **Didactic & Age-Appropriate Content:**
+7. **Didactic & Age-Appropriate Content:**
    - Specifically tailored for a 12-year-old presenter to speak clearly and naturally without memorizing complex jargon.
    - Includes everyday analogies (*e.g., "The Castle Wall", "The Solar Kitchen", "The Water Tank"*), concise bullet points, and school fun facts (*"¿Sabías qué?"*).
 
-6. **Presenter Quick-Jump Dock:**
+8. **Presenter Quick-Jump Dock:**
    - Bottom pill dock for instant gliding to any organelle or the quiz if a teacher asks questions out of sequence.
 
-7. **Interactive Classroom Quiz ("Desafío Celular"):**
+9. **Interactive Classroom Quiz ("Desafío Celular"):**
    - 4-question review game with instant feedback and synthesized Web Audio victory chimes (100% offline, zero audio file dependencies).
 
-8. **100% Offline Capable & Tablet-Optimized:**
-   - Bundles local Three.js (`js/vendor/three.min.js`), ensuring flawless presentation performance even without internet connection at school.
-   - Fluid 60 FPS guaranteed on iPads, Android tablets, and projection laptops.
+10. **100% Offline Capable & Tablet-Optimized:**
+    - Bundles local Three.js (`js/vendor/three.min.js`), ensuring flawless presentation performance even without internet connection at school.
+    - Fluid 60 FPS guaranteed on iPads, Android tablets, and projection laptops.
 
 ---
 

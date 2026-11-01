@@ -14,6 +14,18 @@
     1. Al inicio (0% scroll) se muestra una **planta 3D completa con hojas brillantes**.
     2. Al comenzar a hacer scroll, la cámara microscópica realiza un **zoom hipersuave hacia la superficie de una hoja**, atravesando los tejidos vegetales.
     3. Transición continua donde la cámara "penetra" a escala microscópica y revela la **Célula Vegetal 3D en corte transversal**.
+  * **Texturizado Procedural 3D en Tiempo Real (Bump, Roughness & Detail Maps):** Generación algorítmica de texturas de alta resolución mediante canvas HTML5 en memoria (100% offline, carga instantánea, 0 KB de descargas externas):
+    * *Pared Celular:* Textura fibrosa de microfibrillas entrelazadas de celulosa vegetal con relieve bump pronunciado.
+    * *Vacuola Central:* Cáusticas acuosas fluidas con patrón de refracción líquida y brillo especular.
+    * *Núcleo y Nucléolo:* Superficie porosa con poros nucleares visibles, cromatina granular y núcleo interno incandescente.
+    * *Cloroplastos:* Membrana lipídica estromática con discos de tilacoides estriados y micrograna.
+    * *Mitocondrias:* Bandas transversales de crestas mitocondriales con pliegues internos y bioluminiscencia de ATP.
+    * *Aparato de Golgi & Retículo:* Relieve de cisternas membranosas túbulo-laminares y vesículas secretoras perladas.
+  * **Sistema de Resaltado Dramático (Spotlight, Halo Beacon 3D y Dimming Selectivo):**
+    * *Foco de Luz Dinámico (Dynamic 3D Spotlight):* Un haz de luz puntual potente que viaja en coordenadas 3D posicionándose sobre el organelo en foco, tiñéndolo de su color temático.
+    * *Faro Indicador Bioluminiscente (Beacon Ring Halo):* Un marcador 3D animado formado por anillos concéntricos resplandecientes que levitan y pulsan sobre el organelo activo.
+    * *Atenuación Selectiva de Fondo (Selective Dimming):* Al enfocar un organelo, todos los demás organelos reducen su opacidad al 25% y apagan su emisión, logrando que el organelo protagónico resalte con un contraste cinematográfico.
+    * *Pulso Bioluminiscente Vivo:* El organelo seleccionado respira con una suave pulsación senoidal en su intensidad emisiva.
   * **Tarjetas Flotantes Inteligentes (HUD Overlay):**
     * Las tarjetas didácticas aparecen suavemente (*fade-in / translate*) únicamente cuando la cámara arriba al organelo en cuestión.
     * Desaparecen limpiamente (*fade-out*) en cuanto se continúa el scroll, dejando la pantalla despejada durante los vuelos de cámara entre organelos.
@@ -107,3 +119,39 @@ Para que la explicación sea natural, divertida y fácil de recordar tanto para 
   * Verificar cumplimiento de accesibilidad y soporte de `prefers-reduced-motion`.
 * **Paso 7: Documentación del Sistema (README.md en Inglés)**
   * Crear la documentación técnica completa del proyecto en inglés cumpliendo con las reglas del proyecto.
+
+---
+
+## 6. Registro de Mejoras Visuales: Texturizado Procedural y Resaltado Tridimensional Cinematográfico
+
+### 6.1 Problema Identificado
+Al presentar los organelos en 3D, estos requerían mayor textura táctil/biológica y un contraste visual más contundente cuando la cámara hace foco en cada uno de ellos, evitando superficies lisas o plásticas y logrando que el organelo activo capture inmediatamente la atención de la clase.
+
+### 6.2 Soluciones Implementadas
+1. **Generación de Texturas Procedurales en Tiempo Real (HTML5 Canvas):**
+   * *0 KB de descargas externas:* Las texturas se generan en memoria al iniciar la aplicación, garantizando funcionamiento 100% offline y alta nitidez en pantallas Retina.
+   * *Pared Celular:* Patrón de microfibrillas entrelazadas de celulosa en relieve (`bumpMap`) y variaciones de rugosidad (`roughnessMap`).
+   * *Membrana Plasmática:* Patrón granular que emula las cabezas de la bicapa fosfolipídica.
+   * *Vacuola Central:* Cáusticas acuosas fluidas con reflejos de refracción líquida.
+   * *Núcleo y Nucléolo:* Poros nucleares circulares distribuidos y cromatina condensada en la envoltura nuclear.
+   * *Cloroplastos:* Textura de estroma con estrías laminares de tilacoides.
+   * *Mitocondrias:* Bandas alternadas transversales que simulan los pliegues de las crestas mitocondriales.
+   * *Aparato de Golgi y Retículo:* Estrías membranosas túbulo-laminares y vesículas de transporte.
+
+2. **Corte Anatómico Interior (Cross-Section Window):**
+   * Se incorporó una ventana de corte transversal en el cloroplasto principal que revela en su interior monedas de granas tilacoidales apiladas en verde esmeralda brillante.
+   * Se aplicó corte transversal a la mitocondria principal mostrando sus crestas interiores radiantes en tonos ámbar y rojo biológico.
+
+3. **Sistema de Iluminación Focal Dinámica (Cinematic 3D Spotlight & PointLight):**
+   * Un foco direccional 3D (`THREE.SpotLight`) y una luz puntual de acento (`THREE.PointLight`) viajan en coordenadas tridimensionales suaves (`lerp`) sincronizándose con la posición exacta del organelo activo.
+   * Se calibró la intensidad para destacar los relieves de bump y mantener los colores saturados y vivos sin desaturación ni blanqueo.
+
+4. **Faro Halo Bioluminiscente 3D (Beacon Marker):**
+   * Marcador espacial compuesto por dos anillos concéntricos que giran en direcciones opuestas y cuatro diamantes orbitales pulsantes.
+   * Se posiciona flotando suavemente sobre el organelo en foco, sirviendo como guía visual inmediata para la audiencia escolar.
+
+5. **Atenuación Selectiva del Fondo (Selective Dimming):**
+   * Cuando se activa un organelo, los demás organelos reducen su opacidad al 22% y disminuyen su emisión, creando un fondo contextual discreto.
+   * El organelo en foco recupera el 100% de opacidad y recibe un pulso suave de bioluminiscencia viva.
+   * Se implementó el método `cacheOriginalOrganelleMaterials()` para preservar de manera inmutable las propiedades originales de los materiales y evitar problemas de opacidad residual durante el scroll.
+

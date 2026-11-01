@@ -37,6 +37,19 @@ class PlantCell3DApp {
     this.cellGroup = null;
     this.organelles = {};
     this.pointLights = {};
+    this.textures = {};
+
+    // Dynamic Organelle Spotlight & Beacon Aura
+    this.organelleSpotlight = null;
+    this.organelleFocusLight = null;
+    this.spotlightTarget = null;
+    this.beaconGroup = null;
+    this.beaconInnerRing = null;
+    this.beaconOuterRing = null;
+    this.beaconInnerMat = null;
+    this.beaconOuterMat = null;
+    this.beaconBeamMat = null;
+    this.targetBeaconPos = new THREE.Vector3(0, 0, 0);
 
     // Camera Motion Coordinates (x, y, z)
     this.currentCamPos = { x: 0, y: 3, z: 28 };
@@ -122,6 +135,18 @@ class PlantCell3DApp {
     this.pointLights.violet = new THREE.PointLight(0xd946ef, 3.0, 35);
     this.pointLights.violet.position.set(10, 8, -6);
     this.scene.add(this.pointLights.violet);
+
+    // Dedicated Dynamic Spotlight for Protagonist Organelle
+    this.organelleSpotlight = new THREE.SpotLight(0xffffff, 0, 45, Math.PI / 3.8, 0.45, 1.2);
+    this.organelleSpotlight.position.set(0, 10, 22);
+    this.spotlightTarget = new THREE.Object3D();
+    this.scene.add(this.spotlightTarget);
+    this.organelleSpotlight.target = this.spotlightTarget;
+    this.scene.add(this.organelleSpotlight);
+
+    // Dedicated Traveling Focus Point Light (bathes organelle in local radiant glow)
+    this.organelleFocusLight = new THREE.PointLight(0xffffff, 0, 20, 1.6);
+    this.scene.add(this.organelleFocusLight);
 
     // Floating Microscopic Spores / Dust Particles
     this.createAtmosphericParticles();
@@ -286,6 +311,352 @@ class PlantCell3DApp {
   }
 
   /* ========================================================================
+     Procedural Canvas Textures (High-Resolution Offline Biological Textures)
+     ======================================================================== */
+  initProceduralTextures() {
+    this.textures.cellulose = this.createCelluloseTexture();
+    this.textures.membrane = this.createMembraneTexture();
+    this.textures.caustics = this.createWaterCausticsTexture();
+    this.textures.nucleus = this.createPoreTexture();
+    this.textures.chloroplast = this.createChloroplastTexture();
+    this.textures.cristae = this.createCristaeTexture();
+    this.textures.golgi = this.createGolgiTexture();
+    this.textures.reticular = this.createReticularTexture();
+  }
+
+  createCelluloseTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+
+    // Base plant cell wall green gradient
+    const grad = ctx.createLinearGradient(0, 0, 512, 512);
+    grad.addColorStop(0, '#064e3b');
+    grad.addColorStop(0.5, '#047857');
+    grad.addColorStop(1, '#022c22');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 512, 512);
+
+    // Cross-hatched cellulose microfibrils (layer 1)
+    ctx.lineWidth = 1.3;
+    for (let i = 0; i < 280; i++) {
+      ctx.beginPath();
+      const x0 = Math.random() * 512;
+      const y0 = Math.random() * 512;
+      const angle = (Math.PI / 4) + (Math.random() - 0.5) * 0.4;
+      const length = 70 + Math.random() * 150;
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x0 + Math.cos(angle) * length, y0 + Math.sin(angle) * length);
+      ctx.strokeStyle = Math.random() > 0.4 ? 'rgba(52, 211, 153, 0.45)' : 'rgba(16, 185, 129, 0.28)';
+      ctx.stroke();
+    }
+
+    // Counter cross-fibers (layer 2 - perpendicular angle)
+    for (let i = 0; i < 280; i++) {
+      ctx.beginPath();
+      const x0 = Math.random() * 512;
+      const y0 = Math.random() * 512;
+      const angle = (-Math.PI / 4) + (Math.random() - 0.5) * 0.4;
+      const length = 70 + Math.random() * 150;
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x0 + Math.cos(angle) * length, y0 + Math.sin(angle) * length);
+      ctx.strokeStyle = Math.random() > 0.4 ? 'rgba(167, 243, 208, 0.35)' : 'rgba(6, 78, 59, 0.35)';
+      ctx.stroke();
+    }
+
+    // Micro-granules / relief speckles
+    for (let i = 0; i < 1500; i++) {
+      const gx = Math.random() * 512;
+      const gy = Math.random() * 512;
+      ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255, 255, 255, 0.22)' : 'rgba(0, 0, 0, 0.35)';
+      ctx.fillRect(gx, gy, 1.5, 1.5);
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(4, 3);
+    return tex;
+  }
+
+  createPoreTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+
+    // Deep purple base for nuclear envelope
+    ctx.fillStyle = '#4a044e';
+    ctx.fillRect(0, 0, 512, 512);
+
+    // Fine chromatin grain
+    for (let i = 0; i < 3500; i++) {
+      ctx.fillStyle = Math.random() > 0.5 ? 'rgba(162, 28, 175, 0.35)' : 'rgba(30, 4, 35, 0.45)';
+      ctx.fillRect(Math.random() * 512, Math.random() * 512, 2, 2);
+    }
+
+    // Nuclear pores (octagonal/circular protein complexes)
+    for (let i = 0; i < 75; i++) {
+      const px = 20 + Math.random() * 472;
+      const py = 20 + Math.random() * 472;
+      const radius = 6 + Math.random() * 5;
+
+      // Outer pore ring halo
+      ctx.beginPath();
+      ctx.arc(px, py, radius + 2, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(244, 114, 182, 0.75)';
+      ctx.fill();
+
+      // Middle pore membrane
+      ctx.beginPath();
+      ctx.arc(px, py, radius, 0, Math.PI * 2);
+      ctx.fillStyle = '#701a75';
+      ctx.fill();
+
+      // Inner pore cavity
+      ctx.beginPath();
+      ctx.arc(px, py, radius * 0.45, 0, Math.PI * 2);
+      ctx.fillStyle = '#1e0520';
+      ctx.fill();
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(3, 3);
+    return tex;
+  }
+
+  createWaterCausticsTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+
+    // Deep aquamarine turquoise gradient
+    const grad = ctx.createRadialGradient(256, 256, 50, 256, 256, 320);
+    grad.addColorStop(0, '#0891b2');
+    grad.addColorStop(0.7, '#0e7490');
+    grad.addColorStop(1, '#155e75');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 512, 512);
+
+    // Liquid caustic light webbing
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    for (let i = 0; i < 60; i++) {
+      ctx.beginPath();
+      let cx = Math.random() * 512;
+      let cy = Math.random() * 512;
+      ctx.moveTo(cx, cy);
+      for (let j = 0; j < 6; j++) {
+        cx += (Math.random() - 0.5) * 120;
+        cy += (Math.random() - 0.5) * 120;
+        ctx.lineTo(cx, cy);
+      }
+      ctx.strokeStyle = Math.random() > 0.5 ? 'rgba(165, 243, 252, 0.45)' : 'rgba(255, 255, 255, 0.35)';
+      ctx.lineWidth = 2 + Math.random() * 3.5;
+      ctx.stroke();
+    }
+
+    // Specular bubble spots
+    for (let i = 0; i < 180; i++) {
+      const bx = Math.random() * 512;
+      const by = Math.random() * 512;
+      const br = 1.5 + Math.random() * 3;
+      ctx.beginPath();
+      ctx.arc(bx, by, br, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.fill();
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(2, 2);
+    return tex;
+  }
+
+  createChloroplastTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+
+    // Rich photosynthetic green
+    ctx.fillStyle = '#065f46';
+    ctx.fillRect(0, 0, 512, 512);
+
+    // Horizontal stroma lamellae bands
+    for (let y = 15; y < 512; y += 22) {
+      ctx.beginPath();
+      ctx.moveTo(0, y + (Math.random() - 0.5) * 8);
+      ctx.bezierCurveTo(170, y + 10, 340, y - 10, 512, y + (Math.random() - 0.5) * 8);
+      ctx.strokeStyle = 'rgba(52, 211, 153, 0.45)';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    // Thylakoid granum clusters (discs)
+    for (let i = 0; i < 90; i++) {
+      const gx = Math.random() * 512;
+      const gy = Math.random() * 512;
+      const gr = 5 + Math.random() * 6;
+
+      ctx.beginPath();
+      ctx.ellipse(gx, gy, gr, gr * 0.5, 0.2, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(110, 231, 183, 0.55)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(4, 120, 87, 0.85)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(3, 2);
+    return tex;
+  }
+
+  createCristaeTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+
+    // Warm deep amber/red mitochondrial matrix
+    ctx.fillStyle = '#9a3412';
+    ctx.fillRect(0, 0, 512, 512);
+
+    // Transverse undulating cristae folds
+    for (let y = 10; y < 512; y += 18) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.bezierCurveTo(150, y + 12, 350, y - 12, 512, y);
+      ctx.strokeStyle = 'rgba(254, 215, 170, 0.65)';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(0, y + 5);
+      ctx.bezierCurveTo(150, y + 17, 350, y - 7, 512, y + 5);
+      ctx.strokeStyle = 'rgba(234, 88, 12, 0.85)';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+    }
+
+    // ATP synthase particle speckles
+    for (let i = 0; i < 600; i++) {
+      ctx.fillStyle = 'rgba(255, 237, 213, 0.7)';
+      ctx.fillRect(Math.random() * 512, Math.random() * 512, 2, 2);
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(2, 4);
+    return tex;
+  }
+
+  createMembraneTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+
+    // Luminous cyan fluid mosaic
+    ctx.fillStyle = '#083344';
+    ctx.fillRect(0, 0, 512, 512);
+
+    // Phospholipid hydrophilic head granules
+    for (let i = 0; i < 2200; i++) {
+      const mx = Math.random() * 512;
+      const my = Math.random() * 512;
+      ctx.beginPath();
+      ctx.arc(mx, my, 1.8, 0, Math.PI * 2);
+      ctx.fillStyle = Math.random() > 0.4 ? 'rgba(34, 211, 238, 0.55)' : 'rgba(6, 182, 212, 0.35)';
+      ctx.fill();
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(4, 4);
+    return tex;
+  }
+
+  createGolgiTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+
+    // Deep magenta base
+    ctx.fillStyle = '#831843';
+    ctx.fillRect(0, 0, 512, 512);
+
+    // Parallel cisternae striations
+    for (let y = 10; y < 512; y += 16) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.bezierCurveTo(170, y + 8, 340, y - 8, 512, y);
+      ctx.strokeStyle = 'rgba(244, 114, 182, 0.45)';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    // Budding vesicle circles
+    for (let i = 0; i < 40; i++) {
+      ctx.beginPath();
+      ctx.arc(Math.random() * 512, Math.random() * 512, 4, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(251, 207, 232, 0.6)';
+      ctx.fill();
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(2, 3);
+    return tex;
+  }
+
+  createReticularTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+
+    // Deep violet base
+    ctx.fillStyle = '#581c87';
+    ctx.fillRect(0, 0, 512, 512);
+
+    // Membranous folds and ribosome docking depressions
+    for (let y = 12; y < 512; y += 16) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(512, y);
+      ctx.strokeStyle = 'rgba(192, 132, 252, 0.4)';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+    }
+
+    for (let i = 0; i < 400; i++) {
+      ctx.beginPath();
+      ctx.arc(Math.random() * 512, Math.random() * 512, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(250, 204, 21, 0.5)';
+      ctx.fill();
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(3, 3);
+    return tex;
+  }
+
+  /* ========================================================================
      Plant Cell Cutaway 3D Model Construction (Micro Stage)
      ======================================================================== */
   buildPlantCellModel() {
@@ -293,6 +664,9 @@ class PlantCell3DApp {
     this.cellGroup.position.set(0, 0, 0);
     this.cellGroup.scale.set(0.01, 0.01, 0.01); // Initially collapsed; scales up as we zoom in
     this.cellGroup.visible = false;
+
+    // Initialize Procedural Biological Textures
+    this.initProceduralTextures();
 
     // 1. 3D Cutaway Cell Wall (Prism with Open Interior & Thick Layers)
     this.build3DCellWall();
@@ -324,7 +698,70 @@ class PlantCell3DApp {
     // 10. Ribosomes (Golden Granules)
     this.build3DRibosomes();
 
+    // 11. 3D Luminous Beacon Halo (Dynamic Spotlight & Target Marker for Active Organelle)
+    this.build3DBeaconMarker();
+
+    // 12. Cache Pristine Original Materials (immune to scroll sequence mutations)
+    this.cacheOriginalOrganelleMaterials();
+
     this.scene.add(this.cellGroup);
+  }
+
+  cacheOriginalOrganelleMaterials() {
+    Object.keys(this.organelles).forEach((key) => {
+      const obj = this.organelles[key];
+      if (!obj) return;
+      obj.traverse((child) => {
+        if (child.isMesh && child.material) {
+          child.userData.origOpacity = (child.material.opacity !== undefined) ? child.material.opacity : 1.0;
+          child.userData.origEmissive = (child.material.emissiveIntensity !== undefined) ? child.material.emissiveIntensity : 0.35;
+          child.userData.origTransparent = (child.material.transparent !== undefined) ? child.material.transparent : false;
+        }
+      });
+    });
+  }
+
+  build3DBeaconMarker() {
+    this.beaconGroup = new THREE.Group();
+    this.beaconGroup.visible = false;
+    this.targetBeaconPos = new THREE.Vector3(0, 0, 0);
+
+    // Primary inner glowing ring
+    const innerGeom = new THREE.TorusGeometry(1.9, 0.08, 16, 48);
+    this.beaconInnerMat = new THREE.MeshBasicMaterial({
+      color: 0x38ef7d,
+      transparent: true,
+      opacity: 0.95
+    });
+    this.beaconInnerRing = new THREE.Mesh(innerGeom, this.beaconInnerMat);
+    this.beaconGroup.add(this.beaconInnerRing);
+
+    // Concentric counter-rotating outer ring
+    const outerGeom = new THREE.TorusGeometry(2.55, 0.045, 12, 48);
+    this.beaconOuterMat = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      opacity: 0.8
+    });
+    this.beaconOuterRing = new THREE.Mesh(outerGeom, this.beaconOuterMat);
+    this.beaconGroup.add(this.beaconOuterRing);
+
+    // 4 orbital diamond markers (octahedrons)
+    const pipGeom = new THREE.OctahedronGeometry(0.24);
+    const pipMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const pips = [
+      [2.55, 0, 0],
+      [-2.55, 0, 0],
+      [0, 2.55, 0],
+      [0, -2.55, 0]
+    ];
+    pips.forEach(([px, py, pz]) => {
+      const pip = new THREE.Mesh(pipGeom, pipMat);
+      pip.position.set(px, py, pz);
+      this.beaconGroup.add(pip);
+    });
+
+    this.cellGroup.add(this.beaconGroup);
   }
 
   build3DCellWall() {
@@ -365,12 +802,16 @@ class PlantCell3DApp {
     const wallGeom = new THREE.ExtrudeGeometry(outerShape, extrudeSettings);
     wallGeom.center();
 
+    // Enhanced with Procedural Cellulose Microfibrils Texture
     const wallMat = new THREE.MeshStandardMaterial({
       color: 0x059669,
       emissive: 0x047857,
       emissiveIntensity: 0.25,
-      roughness: 0.45,
-      metalness: 0.15
+      roughness: 0.55,
+      metalness: 0.1,
+      bumpMap: this.textures.cellulose,
+      bumpScale: 0.24,
+      roughnessMap: this.textures.cellulose
     });
 
     const wallMesh = new THREE.Mesh(wallGeom, wallMat);
@@ -411,13 +852,17 @@ class PlantCell3DApp {
     const geom = new THREE.ExtrudeGeometry(shape, { depth: 5.2, bevelEnabled: false });
     geom.center();
 
+    // Enhanced with Procedural Fluid Mosaic Lipid Bilayer Texture
     const mat = new THREE.MeshStandardMaterial({
       color: 0x00f2fe,
       emissive: 0x00f2fe,
       emissiveIntensity: 0.55,
-      roughness: 0.2,
+      roughness: 0.25,
       transparent: true,
-      opacity: 0.85
+      opacity: 0.85,
+      bumpMap: this.textures.membrane,
+      bumpScale: 0.08,
+      roughnessMap: this.textures.membrane
     });
 
     const mesh = new THREE.Mesh(geom, mat);
@@ -459,16 +904,20 @@ class PlantCell3DApp {
     const geom = new THREE.SphereGeometry(3.6, 32, 32);
     geom.scale(1.2, 0.95, 0.85);
 
+    // Enhanced with Procedural Liquid Caustics & Refraction Texture
     const mat = new THREE.MeshPhysicalMaterial({
       color: 0x06b6d4,
       emissive: 0x0891b2,
-      emissiveIntensity: 0.3,
-      roughness: 0.1,
-      metalness: 0.1,
+      emissiveIntensity: 0.35,
+      roughness: 0.12,
+      metalness: 0.05,
       transparent: true,
-      opacity: 0.72,
+      opacity: 0.75,
       transmission: 0.65,
-      ior: 1.33
+      ior: 1.33,
+      bumpMap: this.textures.caustics,
+      bumpScale: 0.12,
+      roughnessMap: this.textures.caustics
     });
 
     const mesh = new THREE.Mesh(geom, mat);
@@ -489,15 +938,18 @@ class PlantCell3DApp {
   build3DNucleus() {
     const nucleusGroup = new THREE.Group();
 
-    // Outer Nucleus (Cutaway Sphere showing interior)
+    // Outer Nucleus Envelope with Procedural Nuclear Pores & Chromatin Texture
     const nucGeom = new THREE.SphereGeometry(2.1, 32, 32, 0, Math.PI * 1.6);
     const nucMat = new THREE.MeshStandardMaterial({
       color: 0x701a75,
       emissive: 0x4a044e,
       emissiveIntensity: 0.35,
-      roughness: 0.4,
-      metalness: 0.15,
-      side: THREE.DoubleSide
+      roughness: 0.45,
+      metalness: 0.12,
+      side: THREE.DoubleSide,
+      bumpMap: this.textures.nucleus,
+      bumpScale: 0.20,
+      roughnessMap: this.textures.nucleus
     });
     const nucMesh = new THREE.Mesh(nucGeom, nucMat);
     nucleusGroup.add(nucMesh);
@@ -531,16 +983,22 @@ class PlantCell3DApp {
     const createSingleChloroplast = (x, y, z, rotX, rotY, rotZ, hasCutaway = false) => {
       const group = new THREE.Group();
 
-      // Outer Lenticular Green Disc
-      const geom = new THREE.SphereGeometry(1.4, 24, 24);
+      // Outer Lenticular Green Disc with Photosynthetic Thylakoid Texture
+      const geom = hasCutaway
+        ? new THREE.SphereGeometry(1.4, 32, 32, 0, Math.PI * 1.55)
+        : new THREE.SphereGeometry(1.4, 24, 24);
       geom.scale(1.3, 0.7, 0.9);
 
       const mat = new THREE.MeshStandardMaterial({
-        color: 0x059669,
-        emissive: 0x10b981,
-        emissiveIntensity: 0.45,
-        roughness: 0.35,
-        metalness: 0.1
+        color: 0x047857,
+        emissive: 0x059669,
+        emissiveIntensity: 0.35,
+        roughness: 0.45,
+        metalness: 0.08,
+        side: hasCutaway ? THREE.DoubleSide : THREE.FrontSide,
+        bumpMap: this.textures.chloroplast,
+        bumpScale: 0.20,
+        roughnessMap: this.textures.chloroplast
       });
       const outerMesh = new THREE.Mesh(geom, mat);
       group.add(outerMesh);
@@ -585,21 +1043,29 @@ class PlantCell3DApp {
   build3DMitochondria() {
     const mitoMasterGroup = new THREE.Group();
 
-    const createSingleMito = (x, y, z, rotX, rotY, rotZ) => {
+    const createSingleMito = (x, y, z, rotX, rotY, rotZ, hasCutaway = false) => {
       const group = new THREE.Group();
 
-      // Outer Orange Capsule
-      const capGeom = new THREE.CylinderGeometry(0.65, 0.65, 2.0, 16);
+      // Outer Orange Capsule with Cristae Folds & Matrix Texture
+      const capGeom = hasCutaway
+        ? new THREE.CylinderGeometry(0.65, 0.65, 2.0, 24, 1, false, 0, Math.PI * 1.55)
+        : new THREE.CylinderGeometry(0.65, 0.65, 2.0, 16);
       const capMat = new THREE.MeshStandardMaterial({
-        color: 0xea580c,
-        emissive: 0xc2410c,
-        emissiveIntensity: 0.5,
-        roughness: 0.35
+        color: 0xc2410c,
+        emissive: 0x9a3412,
+        emissiveIntensity: 0.35,
+        roughness: 0.42,
+        side: hasCutaway ? THREE.DoubleSide : THREE.FrontSide,
+        bumpMap: this.textures.cristae,
+        bumpScale: 0.20,
+        roughnessMap: this.textures.cristae
       });
       const capMesh = new THREE.Mesh(capGeom, capMat);
 
       // Top & Bottom Rounded Hemispheres
-      const capTopGeom = new THREE.SphereGeometry(0.65, 16, 16);
+      const capTopGeom = hasCutaway
+        ? new THREE.SphereGeometry(0.65, 16, 16, 0, Math.PI * 1.55)
+        : new THREE.SphereGeometry(0.65, 16, 16);
       const topHem = new THREE.Mesh(capTopGeom, capMat);
       topHem.position.y = 1.0;
       const botHem = new THREE.Mesh(capTopGeom, capMat);
@@ -624,7 +1090,7 @@ class PlantCell3DApp {
       return group;
     };
 
-    mitoMasterGroup.add(createSingleMito(4.4, -2.8, 1.2, 0.6, 0.4, 0.8));
+    mitoMasterGroup.add(createSingleMito(4.4, -2.8, 1.2, 0.6, 0.4, 0.8, true));
     mitoMasterGroup.add(createSingleMito(4.2, 3.8, 0.5, -0.5, 0.2, -0.6));
     mitoMasterGroup.add(createSingleMito(-1.5, -3.8, 0.8, 0.2, -0.4, 0.5));
 
@@ -635,7 +1101,7 @@ class PlantCell3DApp {
   build3DGolgi() {
     const golgiGroup = new THREE.Group();
 
-    // Stack of 5 Curved Flattened Membranous Cisternae Arches
+    // Stack of 5 Curved Flattened Membranous Cisternae Arches with Fine Texture
     for (let i = 0; i < 5; i++) {
       const radius = 2.4 - i * 0.18;
       const tubeGeom = new THREE.TorusGeometry(radius, 0.22, 12, 32, Math.PI * 0.65);
@@ -643,7 +1109,9 @@ class PlantCell3DApp {
         color: 0xdb2777,
         emissive: 0xec4899,
         emissiveIntensity: 0.55,
-        roughness: 0.3
+        roughness: 0.32,
+        bumpMap: this.textures.golgi,
+        bumpScale: 0.14
       });
       const tubeMesh = new THREE.Mesh(tubeGeom, tubeMat);
       tubeMesh.position.set(0, i * 0.32, 0);
@@ -679,12 +1147,14 @@ class PlantCell3DApp {
   build3DEndoplasmicReticulum() {
     const erGroup = new THREE.Group();
 
-    // Undulating Ribbon Tubes wrapping around the Nucleus
+    // Undulating Ribbon Tubes wrapping around the Nucleus with Reticular Texture
     const tubeMat = new THREE.MeshStandardMaterial({
       color: 0x7c3aed,
       emissive: 0x8b5cf6,
       emissiveIntensity: 0.4,
-      roughness: 0.4
+      roughness: 0.42,
+      bumpMap: this.textures.reticular,
+      bumpScale: 0.14
     });
 
     for (let i = 0; i < 4; i++) {
@@ -778,9 +1248,11 @@ class PlantCell3DApp {
         cellVisible: true,
         plantScale: 0.01,
         cellScale: 1.0,
-        camPos: { x: -7.5, y: 5.0, z: 17.0 },
-        lookAt: { x: -3.5, y: 1.5, z: 0 },
-        organelle: 'cell-wall'
+        camPos: { x: -6.5, y: 4.5, z: 16.5 },
+        lookAt: { x: -3.5, y: 1.5, z: 0.5 },
+        organelle: 'cell-wall',
+        focusCoords: { x: -5.5, y: 2.2, z: 2.8 },
+        themeColor: 0x38ef7d
       },
       'membrane': {
         name: 'Membrana Plasmática (El Filtro)',
@@ -788,9 +1260,11 @@ class PlantCell3DApp {
         cellVisible: true,
         plantScale: 0.01,
         cellScale: 1.0,
-        camPos: { x: -6.5, y: 4.0, z: 15.0 },
-        lookAt: { x: -3.0, y: 1.0, z: 0 },
-        organelle: 'membrane'
+        camPos: { x: -5.8, y: 3.5, z: 14.5 },
+        lookAt: { x: -3.0, y: 1.0, z: 0.5 },
+        organelle: 'membrane',
+        focusCoords: { x: -4.8, y: 1.8, z: 2.2 },
+        themeColor: 0x00f2fe
       },
       'cytoplasm': {
         name: 'Citoplasma (El Océano Interior)',
@@ -798,9 +1272,11 @@ class PlantCell3DApp {
         cellVisible: true,
         plantScale: 0.01,
         cellScale: 1.0,
-        camPos: { x: -1.0, y: 5.0, z: 18.0 },
+        camPos: { x: -1.0, y: 4.5, z: 17.5 },
         lookAt: { x: 0, y: -0.5, z: 0 },
-        organelle: 'cytoplasm'
+        organelle: 'cytoplasm',
+        focusCoords: { x: 0.0, y: -0.6, z: 0.4 },
+        themeColor: 0x38bdf8
       },
       'nucleus': {
         name: 'Núcleo y Nucléolo (El Cerebro de la Célula)',
@@ -808,9 +1284,11 @@ class PlantCell3DApp {
         cellVisible: true,
         plantScale: 0.01,
         cellScale: 1.0,
-        camPos: { x: 3.8, y: 3.5, z: 11.5 },
+        camPos: { x: 1.2, y: 3.2, z: 12.8 },
         lookAt: { x: 3.2, y: 1.8, z: 0.5 },
-        organelle: 'nucleus'
+        organelle: 'nucleus',
+        focusCoords: { x: 3.4, y: 1.8, z: 1.2 },
+        themeColor: 0xf472b6
       },
       'chloroplasts': {
         name: 'Cloroplastos (Las Cocinas Solares)',
@@ -818,9 +1296,11 @@ class PlantCell3DApp {
         cellVisible: true,
         plantScale: 0.01,
         cellScale: 1.0,
-        camPos: { x: -4.5, y: -1.0, z: 12.0 },
-        lookAt: { x: -3.8, y: -2.4, z: 1.0 },
-        organelle: 'chloroplasts'
+        camPos: { x: -4.2, y: -0.8, z: 12.0 },
+        lookAt: { x: -4.0, y: -2.4, z: 1.0 },
+        organelle: 'chloroplasts',
+        focusCoords: { x: -4.2, y: -2.6, z: 1.5 },
+        themeColor: 0x10b981
       },
       'vacuole': {
         name: 'Vacuola Central (El Gran Tinaco de Agua)',
@@ -828,9 +1308,11 @@ class PlantCell3DApp {
         cellVisible: true,
         plantScale: 0.01,
         cellScale: 1.0,
-        camPos: { x: -3.5, y: 2.5, z: 14.0 },
+        camPos: { x: -3.2, y: 2.2, z: 14.0 },
         lookAt: { x: -2.2, y: 0.4, z: 0.2 },
-        organelle: 'vacuole'
+        organelle: 'vacuole',
+        focusCoords: { x: -2.5, y: 0.4, z: 1.4 },
+        themeColor: 0x06b6d4
       },
       'mitochondria': {
         name: 'Mitocondrias (Las Centrales Eléctricas)',
@@ -838,9 +1320,11 @@ class PlantCell3DApp {
         cellVisible: true,
         plantScale: 0.01,
         cellScale: 1.0,
-        camPos: { x: 4.8, y: -1.5, z: 11.5 },
+        camPos: { x: 2.4, y: -1.2, z: 12.0 },
         lookAt: { x: 4.2, y: -2.5, z: 1.0 },
-        organelle: 'mitochondria'
+        organelle: 'mitochondria',
+        focusCoords: { x: 4.4, y: -2.8, z: 1.5 },
+        themeColor: 0xf97316
       },
       'golgi': {
         name: 'Aparato de Golgi (Oficina de Paquetería)',
@@ -848,9 +1332,11 @@ class PlantCell3DApp {
         cellVisible: true,
         plantScale: 0.01,
         cellScale: 1.0,
-        camPos: { x: -0.5, y: -1.8, z: 12.0 },
+        camPos: { x: -2.2, y: -1.6, z: 12.5 },
         lookAt: { x: -0.5, y: -3.0, z: 1.0 },
-        organelle: 'golgi'
+        organelle: 'golgi',
+        focusCoords: { x: -0.5, y: -3.2, z: 1.5 },
+        themeColor: 0xec4899
       },
       'er': {
         name: 'Retículo Endoplasmático (La Fábrica)',
@@ -858,9 +1344,11 @@ class PlantCell3DApp {
         cellVisible: true,
         plantScale: 0.01,
         cellScale: 1.0,
-        camPos: { x: 3.8, y: 3.8, z: 12.5 },
+        camPos: { x: 1.6, y: 3.4, z: 13.0 },
         lookAt: { x: 3.4, y: 2.0, z: 0.4 },
-        organelle: 'er'
+        organelle: 'er',
+        focusCoords: { x: 3.6, y: 2.6, z: 1.0 },
+        themeColor: 0xa855f7
       },
       'ribosomes': {
         name: 'Ribosomas (Los Mini Obreros)',
@@ -868,9 +1356,11 @@ class PlantCell3DApp {
         cellVisible: true,
         plantScale: 0.01,
         cellScale: 1.0,
-        camPos: { x: 3.2, y: 2.8, z: 9.5 },
+        camPos: { x: 1.2, y: 2.6, z: 10.5 },
         lookAt: { x: 3.0, y: 2.0, z: 0.2 },
-        organelle: 'ribosomes'
+        organelle: 'ribosomes',
+        focusCoords: { x: 3.0, y: 2.0, z: 0.8 },
+        themeColor: 0xfacc15
       },
       'quiz': {
         name: 'Desafío Escolar: Trivia Interactiva',
@@ -956,19 +1446,78 @@ class PlantCell3DApp {
       }
     });
 
-    // 5. Update Organelle Highlights (Scale/Pulse Active Organelle)
-    Object.keys(this.organelles).forEach((key) => {
-      const obj = this.organelles[key];
-      if (!obj) return;
+    // 5. Update Organelle Dramatic Highlighting & Selective Dimming
+    const activeKey = config.organelle;
 
-      if (!config.organelle) {
-        // Overview mode: all normal
-        obj.visible = true;
-      } else if (config.organelle === key) {
-        // Protagonist organelle
-        obj.visible = true;
+    if (activeKey && config.focusCoords) {
+      // Move and show 3D Luminous Beacon Marker
+      if (this.beaconGroup) {
+        this.beaconGroup.visible = true;
+        this.targetBeaconPos.set(config.focusCoords.x, config.focusCoords.y, config.focusCoords.z);
+
+        const themeCol = new THREE.Color(config.themeColor || 0x38ef7d);
+        if (this.beaconInnerMat) this.beaconInnerMat.color = themeCol;
+
+        // Position dynamic spotlight directly onto the protagonist organelle with balanced illumination
+        if (this.organelleSpotlight && this.spotlightTarget) {
+          this.organelleSpotlight.color = themeCol.clone().lerp(new THREE.Color(0xffffff), 0.25);
+          this.organelleSpotlight.intensity = 2.2;
+          this.spotlightTarget.position.set(config.focusCoords.x, config.focusCoords.y, config.focusCoords.z);
+        }
+
+        // Position traveling focus point light right over the organelle
+        if (this.organelleFocusLight) {
+          this.organelleFocusLight.color = themeCol;
+          this.organelleFocusLight.intensity = 2.0;
+          this.organelleFocusLight.position.set(
+            config.focusCoords.x,
+            config.focusCoords.y,
+            config.focusCoords.z + 1.8
+          );
+        }
       }
-    });
+
+      // Selective Dimming of Inactive Organelles & Boost of Protagonist
+      Object.keys(this.organelles).forEach((key) => {
+        const obj = this.organelles[key];
+        if (!obj) return;
+
+        const isFocused = (key === activeKey);
+        obj.traverse((child) => {
+          if (child.isMesh && child.material) {
+            if (isFocused) {
+              child.material.transparent = child.userData.origTransparent || false;
+              child.material.opacity = child.userData.origOpacity !== undefined ? child.userData.origOpacity : 1.0;
+              child.material.emissiveIntensity = Math.min(0.95, (child.userData.origEmissive || 0.35) * 1.6);
+              child.userData.isFocused = true;
+            } else {
+              child.material.transparent = true;
+              child.material.opacity = (key === 'cytoplasm') ? 0.05 : 0.22;
+              child.material.emissiveIntensity = 0.03;
+              child.userData.isFocused = false;
+            }
+          }
+        });
+      });
+    } else {
+      // Overview or hero/leaf stage: restore all organelles to balanced visibility
+      if (this.beaconGroup) this.beaconGroup.visible = false;
+      if (this.organelleSpotlight) this.organelleSpotlight.intensity = 0;
+      if (this.organelleFocusLight) this.organelleFocusLight.intensity = 0;
+
+      Object.keys(this.organelles).forEach((key) => {
+        const obj = this.organelles[key];
+        if (!obj) return;
+        obj.traverse((child) => {
+          if (child.isMesh && child.material) {
+            child.material.transparent = child.userData.origTransparent || false;
+            child.material.opacity = child.userData.origOpacity !== undefined ? child.userData.origOpacity : 1.0;
+            child.material.emissiveIntensity = child.userData.origEmissive !== undefined ? child.userData.origEmissive : 0.35;
+            child.userData.isFocused = false;
+          }
+        });
+      });
+    }
   }
 
   /* ========================================================================
@@ -1099,6 +1648,31 @@ class PlantCell3DApp {
       // Subtle organic breathing rotation
       this.cellGroup.rotation.y = Math.sin(Date.now() * 0.0005) * 0.08 + this.tiltY * 0.4;
       this.cellGroup.rotation.x = this.tiltX * 0.4;
+    }
+
+    // Dynamic Beacon & Active Organelle Pulse Animation
+    if (this.beaconGroup && this.beaconGroup.visible) {
+      // Smooth lerp beacon position towards active organelle focus coordinate
+      this.beaconGroup.position.lerp(this.targetBeaconPos, 0.08);
+
+      // Rotate concentric rings in opposite directions
+      if (this.beaconInnerRing) this.beaconInnerRing.rotation.z += 0.024;
+      if (this.beaconOuterRing) this.beaconOuterRing.rotation.z -= 0.016;
+
+      // Gentle scale pulse
+      const bPulse = 1.0 + Math.sin(Date.now() * 0.006) * 0.12;
+      this.beaconGroup.scale.set(bPulse, bPulse, bPulse);
+
+      // Bioluminescent breathing glow on the active organelle
+      const activeObj = this.organelles[config.organelle];
+      if (activeObj) {
+        const pulseGlow = Math.sin(Date.now() * 0.005) * 0.18;
+        activeObj.traverse((child) => {
+          if (child.isMesh && child.material && child.userData.isFocused) {
+            child.material.emissiveIntensity = Math.min(1.0, (child.userData.origEmissive || 0.35) * 1.5 + pulseGlow);
+          }
+        });
+      }
     }
 
     // Atmospheric Particle Floating
