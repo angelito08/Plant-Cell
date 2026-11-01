@@ -167,7 +167,32 @@ Al presentar los organelos en 3D, estos requerían mayor textura táctil/biológ
 ### 7.2 Plan de Solución
 1. Ampliar el selector de disparadores de scroll en `js/app.js` a `document.querySelectorAll('.scroll-step-trigger, #step-quiz, .quiz-section')`.
 2. Agregar un disparador de scroll complementario o registrar directamente el elemento `#step-quiz` en el observer con un margen de intersección apropiado.
-3. En `initPresenterDock()`, invocar explícitamente `this.activateStep(pill.dataset.step)` al hacer clic sobre cualquier píldora de navegación, garantizando respuesta instantánea del HUD, ocultado de tarjetas y reencuadre de cámara hacia la vista panorámica del quiz.
-4. Validar visualmente en navegador mediante subagente que al llegar al Quiz la tarjeta de los Ribosomas se oculte por completo y la interfaz del quiz quede totalmente despejada.
+---
+
+## 8. Rediseño Cromático y Morfológico: Vacuola Central y Ribosomas
+
+### 8.1 Diagnóstico Visual
+1. **Vacuola Central:**
+   - La vacuola presentaba una transparencia excesiva (`transmission: 0.65`) con un tono cian desaturado (`0x06b6d4`), haciendo que se percibiera como una masa grisácea, opaca y apagada, fusionándose con el fondo oscuro y el citoplasma en lugar de verse como un imponente depósito de agua cristalina viva.
+2. **Ribosomas:**
+   - Los ribosomas estaban representados mediante partículas 2D planas (`THREE.Points`) con un tamaño diminuto de punto que se perdía en pantallas de alta resolución.
+   - Al no ser mallas 3D (`Mesh`), no interactuaban con los focos de iluminación, sombras ni mapas de material PBR.
+   - Su color amarillo tenue (`#facc15`) carecía de contraste con las luces especulares del retículo y la vacuola.
+
+### 8.2 Estrategia de Mejora
+
+1. **Nueva Identidad Visual de la Vacuola Central:**
+   - **Color:** Azul Zafiro Crystalline / Océano Eléctrico (`#0077b6` a `#00b4d8`, base `0x0099ff` y emisión interna `0x0044cc`).
+   - **Material PBR Acuoso:** Se reduce la transmisión a un nivel balanceado (`transmission: 0.38`, `opacity: 0.88`, `roughness: 0.08`, `clearcoat: 1.0`) para conservar volumen tridimensional sólido y saturación cromática vibrante.
+   - **Cáusticas Líquidas Refinadas:** Se intensifica el mapa procedural de cáusticas de agua (`createWaterCausticsTexture`) con líneas de refracción blancas y cian brillante que reflejan la turgencia del agua celular.
+   - **Acento en UI:** Actualizar el color de la tarjeta y píldora a Azul Zafiro (`#00b4d8`).
+
+2. **Nueva Identidad Visual de los Ribosomas:**
+   - **Morfología 3D Real (`InstancedMesh`):** Reemplazar las partículas planas por cientos de **esferas tridimensionales de volumen físico real** (`THREE.SphereGeometry`), modeladas con brillo metálico y presencia tangible.
+   - **Distribución Anatómica:** Organizados densamente sobre las membranas del Retículo Endoplasmático Rugoso (emulando la fabricación activa de proteínas) y dispersos en el citoplasma circundante.
+   - **Color de Máximo Contraste:**
+     - Rojo Rubí / Coral Neón Bioluminiscente (`#ff2a5f` / `0xff1744`), un color que contrasta de manera dramática contra el violeta del retículo endoplasmático (`#8b5cf6`), el azul zafiro de la vacuola y el verde esmeralda de la pared celular.
+   - **Acento en UI:** Actualizar el color de la tarjeta de Ribosomas y su píldora en el dock a Rojo Coral / Rubí (`#ff2a5f`).
+
 
 

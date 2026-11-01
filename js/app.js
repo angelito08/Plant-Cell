@@ -434,18 +434,19 @@ class PlantCell3DApp {
     canvas.height = 512;
     const ctx = canvas.getContext('2d');
 
-    // Deep aquamarine turquoise gradient
-    const grad = ctx.createRadialGradient(256, 256, 50, 256, 256, 320);
-    grad.addColorStop(0, '#0891b2');
-    grad.addColorStop(0.7, '#0e7490');
-    grad.addColorStop(1, '#155e75');
+    // Radiant Royal Electric Sapphire aquatic gradient
+    const grad = ctx.createRadialGradient(256, 256, 30, 256, 256, 320);
+    grad.addColorStop(0, '#00d4ff');
+    grad.addColorStop(0.35, '#0077ff');
+    grad.addColorStop(0.75, '#0044cc');
+    grad.addColorStop(1, '#001a66');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 512, 512);
 
-    // Liquid caustic light webbing
+    // Liquid caustic light webbing with bright white and cyan waves
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 70; i++) {
       ctx.beginPath();
       let cx = Math.random() * 512;
       let cy = Math.random() * 512;
@@ -455,19 +456,19 @@ class PlantCell3DApp {
         cy += (Math.random() - 0.5) * 120;
         ctx.lineTo(cx, cy);
       }
-      ctx.strokeStyle = Math.random() > 0.5 ? 'rgba(165, 243, 252, 0.45)' : 'rgba(255, 255, 255, 0.35)';
+      ctx.strokeStyle = Math.random() > 0.4 ? 'rgba(255, 255, 255, 0.7)' : 'rgba(144, 224, 239, 0.6)';
       ctx.lineWidth = 2 + Math.random() * 3.5;
       ctx.stroke();
     }
 
-    // Specular bubble spots
+    // Specular water bubble reflections
     for (let i = 0; i < 180; i++) {
       const bx = Math.random() * 512;
       const by = Math.random() * 512;
       const br = 1.5 + Math.random() * 3;
       ctx.beginPath();
       ctx.arc(bx, by, br, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
       ctx.fill();
     }
 
@@ -901,31 +902,30 @@ class PlantCell3DApp {
     const vacuoleGroup = new THREE.Group();
 
     // Massive glassy, bulbous organic reservoir occupying ~35% of interior
-    const geom = new THREE.SphereGeometry(3.6, 32, 32);
+    const geom = new THREE.SphereGeometry(3.6, 36, 36);
     geom.scale(1.2, 0.95, 0.85);
 
-    // Enhanced with Procedural Liquid Caustics & Refraction Texture
+    // Enhanced with Procedural Liquid Caustics & Refraction Texture - Pure Radiant Sapphire
     const mat = new THREE.MeshPhysicalMaterial({
-      color: 0x06b6d4,
-      emissive: 0x0891b2,
-      emissiveIntensity: 0.35,
+      color: 0x0077ff,
+      emissive: 0x0044cc,
+      emissiveIntensity: 0.65,
       roughness: 0.12,
       metalness: 0.05,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.05,
       transparent: true,
-      opacity: 0.75,
-      transmission: 0.65,
-      ior: 1.33,
+      opacity: 0.92,
       bumpMap: this.textures.caustics,
-      bumpScale: 0.12,
-      roughnessMap: this.textures.caustics
+      bumpScale: 0.18
     });
 
     const mesh = new THREE.Mesh(geom, mat);
     vacuoleGroup.add(mesh);
 
     // Specular highlight droplet inside
-    const dropGeom = new THREE.SphereGeometry(0.6, 16, 16);
-    const dropMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 });
+    const dropGeom = new THREE.SphereGeometry(0.65, 16, 16);
+    const dropMat = new THREE.MeshBasicMaterial({ color: 0xe0f2fe, transparent: true, opacity: 0.85 });
     const drop = new THREE.Mesh(dropGeom, dropMat);
     drop.position.set(-1.2, 1.4, 1.5);
     vacuoleGroup.add(drop);
@@ -1174,37 +1174,51 @@ class PlantCell3DApp {
   }
 
   build3DRibosomes() {
-    const riboCount = 180;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(riboCount * 3);
-
-    // Scatter on ER and freely in cytoplasm
-    for (let i = 0; i < riboCount; i++) {
-      if (i < 120) {
-        // Studded around ER & Nucleus
-        positions[i * 3] = 2.4 + Math.random() * 3.0;
-        positions[i * 3 + 1] = 0.8 + Math.random() * 3.0;
-        positions[i * 3 + 2] = -0.4 + Math.random() * 1.5;
-      } else {
-        // Free cytoplasmic
-        positions[i * 3] = (Math.random() - 0.5) * 8.0;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 6.0;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 2.0;
-      }
-    }
-
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const material = new THREE.PointsMaterial({
-      color: 0xfacc15,
-      size: 0.28,
-      transparent: true,
-      opacity: 0.95
+    const riboCount = 340;
+    const sphereGeom = new THREE.SphereGeometry(0.18, 12, 10);
+    
+    // Bioluminescent Deep Ruby Red Material for Maximum Scientific Distinction
+    const riboMat = new THREE.MeshStandardMaterial({
+      color: 0xff0044,
+      emissive: 0xd90036,
+      emissiveIntensity: 0.85,
+      roughness: 0.35,
+      metalness: 0.1
     });
 
-    const riboPoints = new THREE.Points(geometry, material);
-    this.organelles['ribosomes'] = riboPoints;
-    this.cellGroup.add(riboPoints);
+    const instancedMesh = new THREE.InstancedMesh(sphereGeom, riboMat, riboCount);
+    const dummy = new THREE.Object3D();
+
+    for (let i = 0; i < riboCount; i++) {
+      if (i < 250) {
+        // Densely studded along the folds of the Rough Endoplasmic Reticulum (x: 2.2-5.2, y: 1.0-3.8)
+        const t = i / 250;
+        const tubeIdx = i % 4;
+        const xBase = 2.4 + (tubeIdx * 0.72) + (Math.sin(t * 14) * 0.42);
+        const yBase = 1.0 + (t * 2.8) + ((Math.random() - 0.5) * 0.35);
+        const zBase = 0.25 + (Math.cos(t * 12) * 0.5) + ((Math.random() - 0.5) * 0.35);
+
+        dummy.position.set(xBase, yBase, zBase);
+        const s = 0.8 + Math.random() * 0.5;
+        dummy.scale.set(s, s, s);
+      } else {
+        // Free-floating cytoplasmic ribosomes
+        dummy.position.set(
+          (Math.random() - 0.5) * 8.5,
+          (Math.random() - 0.5) * 6.5,
+          (Math.random() - 0.5) * 2.5
+        );
+        const s = 0.7 + Math.random() * 0.4;
+        dummy.scale.set(s, s, s);
+      }
+      dummy.updateMatrix();
+      instancedMesh.setMatrixAt(i, dummy.matrix);
+    }
+
+    instancedMesh.instanceMatrix.needsUpdate = true;
+
+    this.organelles['ribosomes'] = instancedMesh;
+    this.cellGroup.add(instancedMesh);
   }
 
   /* ========================================================================
@@ -1312,7 +1326,7 @@ class PlantCell3DApp {
         lookAt: { x: -2.2, y: 0.4, z: 0.2 },
         organelle: 'vacuole',
         focusCoords: { x: -2.5, y: 0.4, z: 1.4 },
-        themeColor: 0x06b6d4
+        themeColor: 0x00b4d8
       },
       'mitochondria': {
         name: 'Mitocondrias (Las Centrales Eléctricas)',
@@ -1356,11 +1370,11 @@ class PlantCell3DApp {
         cellVisible: true,
         plantScale: 0.01,
         cellScale: 1.0,
-        camPos: { x: 1.2, y: 2.6, z: 10.5 },
-        lookAt: { x: 3.0, y: 2.0, z: 0.2 },
+        camPos: { x: 1.2, y: 2.6, z: 10.0 },
+        lookAt: { x: 3.2, y: 2.2, z: 0.3 },
         organelle: 'ribosomes',
-        focusCoords: { x: 3.0, y: 2.0, z: 0.8 },
-        themeColor: 0xfacc15
+        focusCoords: { x: 3.4, y: 2.4, z: 0.8 },
+        themeColor: 0xff2a5f
       },
       'quiz': {
         name: 'Desafío Escolar: Trivia Interactiva',
@@ -1465,7 +1479,7 @@ class PlantCell3DApp {
 
         // Position dynamic spotlight directly onto the protagonist organelle with balanced illumination
         if (this.organelleSpotlight && this.spotlightTarget) {
-          this.organelleSpotlight.color = themeCol.clone().lerp(new THREE.Color(0xffffff), 0.25);
+          this.organelleSpotlight.color = (activeKey === 'ribosomes') ? themeCol.clone() : themeCol.clone().lerp(new THREE.Color(0xffffff), 0.15);
           this.organelleSpotlight.intensity = 2.2;
           this.spotlightTarget.position.set(config.focusCoords.x, config.focusCoords.y, config.focusCoords.z);
         }
@@ -1473,7 +1487,7 @@ class PlantCell3DApp {
         // Position traveling focus point light right over the organelle
         if (this.organelleFocusLight) {
           this.organelleFocusLight.color = themeCol;
-          this.organelleFocusLight.intensity = 2.0;
+          this.organelleFocusLight.intensity = (activeKey === 'ribosomes') ? 1.6 : 2.0;
           this.organelleFocusLight.position.set(
             config.focusCoords.x,
             config.focusCoords.y,

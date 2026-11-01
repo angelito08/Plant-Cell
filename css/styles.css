@@ -19,11 +19,11 @@
   --accent-cytoplasm: #4facfe;
   --accent-nucleus: #d946ef;
   --accent-chloroplast: #10b981;
-  --accent-vacuole: #06b6d4;
+  --accent-vacuole: #00b4d8;
   --accent-mitochondria: #f97316;
   --accent-golgi: #ec4899;
   --accent-er: #8b5cf6;
-  --accent-ribosomes: #facc15;
+  --accent-ribosomes: #ff2a5f;
 
   /* Typography */
   --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
