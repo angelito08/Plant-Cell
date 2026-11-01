@@ -1,6 +1,6 @@
 # Interactive Plant Cell Scrollytelling Experience
 
-An interactive, high-performance web presentation created for **Luna María Estrada Nieto** for her **Ciencias (Science)** class at **Escuela Secundaria Federal #60**. The application combines **scrollytelling**, hardware-accelerated SVG animations, and a bioluminescent dark laboratory theme to make learning plant cytology intuitive, memorable, and visually engaging.
+An interactive, high-performance 3D web presentation created for **Luna María Estrada Nieto** for her **Ciencias (Science)** class at **Escuela Secundaria Federal #60**. The application features an immersive **Three.js WebGL engine** that executes a smooth **macro-to-micro flight** from a 3D potted botanical plant directly into a cutaway 3D plant cell with true volume, thickness, and bioluminescent depth lighting.
 
 * **Student Presenter:** Luna María Estrada Nieto
 * **School:** Escuela Secundaria Federal #60
@@ -11,32 +11,33 @@ An interactive, high-performance web presentation created for **Luna María Estr
 
 ## 🌟 Key Features
 
-1. **Scroll-Driven Storytelling (Scrollytelling):**
-   - Seamlessly synchronizes narrative didactic cards with a pinned, dynamic SVG plant cell graphic.
-   - Automatically focuses, zooms, and highlights each active organelle while smoothly dimming peripheral structures.
+1. **Macro-to-Micro 3D Journey (Plant to Cell Zoom):**
+   - Starts with a stylized 3D potted plant with glowing leaf blades and morning dew drops.
+   - Scrolling triggers a cinematic microscope zoom diving through the leaf cuticle and plant tissue directly into the cellular cutaway.
 
-2. **Bioluminescent Laboratory Visual Aesthetic:**
-   - Deep midnight background (`#080d11`) paired with vivid neon botanical accents (emerald, cyan, violet, amber, and gold).
-   - High contrast optimized for classrooms, school digital projectors, and tablet displays.
+2. **Full-Viewport 3D Plant Cell Cutaway:**
+   - Real 3D volume, thick beveled walls showing structural layers, translucent glassy vacuole, spherical nucleus with glowing nucleolus, chloroplast discs with thylakoid grana stacks, mitochondria, Golgi cisternae, and golden ribosomes.
+   - Built on pure Three.js with hardware-accelerated PBR shaders and dynamic point lights (emerald, cyan, violet, amber).
 
-3. **Didactic & Age-Appropriate Content:**
-   - Specifically written for a 12-year-old presenter to speak with confidence.
-   - Every organelle includes:
-     - **Everyday Analogy** (*e.g., "The Castle Wall", "The Solar Kitchen", "The Water Tank"*).
-     - **Quick Concept Summary** in simple everyday language.
-     - **Key Functions** bulleted concisely.
-     - **School Fun Fact** (*"¿Sabías qué?"*) to captivate classmates and teachers.
+3. **Floating HUD Narrative Cards (On-Demand Appearance):**
+   - Cards smoothly fade in and elevate when arriving at an organelle, and fade out cleanly during camera transitions between organelles, leaving the 3D view completely unobstructed.
 
-4. **Presenter Quick-Jump Dock:**
-   - A sticky, touch-friendly pill dock at the bottom of the viewport allowing the student to instantly glide to any specific organelle if a teacher or classmate asks a question out of order.
+4. **Interactive 3D Tilt & Orientation:**
+   - The student presenter or teacher can gently touch or drag on the screen to tilt the cell in 3D (+- 25 degrees) to explore its volume from custom angles.
 
-5. **Interactive Classroom Quiz ("Desafío Celular"):**
-   - 4-question interactive review game with immediate feedback and synthesized celebratory chime sound effects generated in real-time via the Web Audio API (zero external audio file dependencies).
+5. **Didactic & Age-Appropriate Content:**
+   - Specifically tailored for a 12-year-old presenter to speak clearly and naturally without memorizing complex jargon.
+   - Includes everyday analogies (*e.g., "The Castle Wall", "The Solar Kitchen", "The Water Tank"*), concise bullet points, and school fun facts (*"¿Sabías qué?"*).
 
-6. **Tablet & Fullscreen Optimization:**
-   - Responsive split layout for desktop and tablet landscape; pinned viewport layout for tablet portrait.
-   - Built-in full-screen mode toggle to eliminate distracting browser chrome during presentations.
-   - Zero heavy WebGL or unoptimized 3D assets: ultra-lightweight footprint (< 60 KB total code), guaranteeing 60 FPS on iPads and budget school devices.
+6. **Presenter Quick-Jump Dock:**
+   - Bottom pill dock for instant gliding to any organelle or the quiz if a teacher asks questions out of sequence.
+
+7. **Interactive Classroom Quiz ("Desafío Celular"):**
+   - 4-question review game with instant feedback and synthesized Web Audio victory chimes (100% offline, zero audio file dependencies).
+
+8. **100% Offline Capable & Tablet-Optimized:**
+   - Bundles local Three.js (`js/vendor/three.min.js`), ensuring flawless presentation performance even without internet connection at school.
+   - Fluid 60 FPS guaranteed on iPads, Android tablets, and projection laptops.
 
 ---
 

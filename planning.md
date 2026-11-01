@@ -7,9 +7,18 @@
 * **Presentadora Oficial:** **Luna María Estrada Nieto** (12 años).
 * **Institución Educativa:** **Escuela Secundaria Federal #60**.
 * **Materia / Asignatura:** **Ciencias** (Ciencias Naturales / Biología).
-* **Decisiones de Diseño Confirmadas:**
-  * **Estilo Visual:** Modo Bioluminiscente / Noche Científica (Fondo oscuro tipo laboratorio espacial/microscopio `#090e11` / `#0f172a`, con organelos brillantes en tonos neón botánicos: esmeralda, cian, dorado, magenta y púrpura resplandecientes). Ideal para proyectores y pantallas de tabletas con alto contraste.
-  * **Herramientas de Exposición:** Dock de navegación rápida por organelo para la expositora, botón de pantalla completa y Mini-Quiz interactivo al final ("Desafío Celular") con retroalimentación inmediata para involucrar al grupo.
+* **Decisiones de Diseño Confirmadas (Evolución 3D Inmersiva):**
+  * **Motor Gráfico 3D (WebGL / Three.js):** Representación tridimensional con volumen real, espesor de paredes, curvatura de organelos, iluminación direccional y materiales translúcidos (PBR). Todo optimizado para 60 FPS en iPads y tabletas.
+  * **Experiencia a Pantalla Completa (Full Viewport Canvas):** El modelo 3D abarca el 100% de la pantalla, eliminando divisiones rígidas de columnas y ofreciendo un impacto visual cinematográfico tipo IMAX escolar.
+  * **Secuencia Inicial "Macro a Micro" (De la Planta a la Célula):**
+    1. Al inicio (0% scroll) se muestra una **planta 3D completa con hojas brillantes**.
+    2. Al comenzar a hacer scroll, la cámara microscópica realiza un **zoom hipersuave hacia la superficie de una hoja**, atravesando los tejidos vegetales.
+    3. Transición continua donde la cámara "penetra" a escala microscópica y revela la **Célula Vegetal 3D en corte transversal**.
+  * **Tarjetas Flotantes Inteligentes (HUD Overlay):**
+    * Las tarjetas didácticas aparecen suavemente (*fade-in / translate*) únicamente cuando la cámara arriba al organelo en cuestión.
+    * Desaparecen limpiamente (*fade-out*) en cuanto se continúa el scroll, dejando la pantalla despejada durante los vuelos de cámara entre organelos.
+  * **Interactividad Táctil y Giro 3D:** Además del scroll guiado, la expositora puede inclinar o rotar ligeramente la célula con el dedo o mouse para mostrar su volumen desde diferentes ángulos.
+  * **Disponibilidad 100% Offline:** Three.js empaquetado de forma local para garantizar que la presentación funcione sin conexión a internet en la escuela.
 * **Requisitos Clave:**
   * **Lenguaje accesible:** Explicaciones claras, tono amigable y metáforas cotidianas (ej. "el núcleo es la oficina del director", "la vacuola es el tinaco de agua").
   * **Control por scroll:** El avance de la página desencadena animaciones, acercamientos (zoom) y resplandores en cada organelo correspondiente.

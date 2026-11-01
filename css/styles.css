@@ -1,18 +1,17 @@
 /* ==========================================================================
-   Plant Cell Scrollytelling Presentation - Stylesheet
-   Theme: Bioluminescent Scientific Dark Mode (Optimized for Tablets & Display)
+   Plant Cell 3D Scrollytelling Experience - Stylesheet
+   Theme: Immersive Bioluminescent 3D WebGL (Optimized for Tablets & Displays)
+   Student Presenter: Luna María Estrada Nieto | Escuela Secundaria Federal #60
    All code symbols, variables, and comments in English
    ========================================================================== */
 
 :root {
   /* Color Palette - Bioluminescent Botanical */
-  --bg-primary: #080d11;
-  --bg-secondary: #0d161d;
-  --bg-surface: rgba(16, 27, 36, 0.75);
-  --bg-surface-elevated: rgba(22, 38, 50, 0.85);
-  --bg-card: rgba(14, 25, 33, 0.88);
-  --border-subtle: rgba(72, 199, 142, 0.18);
-  --border-focus: rgba(72, 230, 160, 0.55);
+  --bg-primary: #060a0d;
+  --bg-surface: rgba(10, 18, 24, 0.78);
+  --bg-card: rgba(12, 22, 30, 0.88);
+  --border-subtle: rgba(56, 239, 125, 0.22);
+  --border-focus: rgba(72, 230, 160, 0.65);
 
   /* Organelle Neon Accent Colors */
   --accent-cell-wall: #38ef7d;
@@ -31,29 +30,20 @@
   --font-mono: 'Space Grotesk', monospace;
 
   /* Text Colors */
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-highlight: #38ef7d;
-
-  /* Shadows and Glows */
-  --glow-emerald: 0 0 25px rgba(56, 239, 125, 0.35);
-  --glow-cyan: 0 0 25px rgba(0, 242, 254, 0.35);
-  --glow-violet: 0 0 25px rgba(217, 70, 239, 0.35);
-  --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
 
   /* Layout and Geometry */
   --header-height: 64px;
-  --dock-height: 56px;
   --radius-sm: 8px;
   --radius-md: 14px;
-  --radius-lg: 22px;
+  --radius-lg: 20px;
   --radius-pill: 9999px;
 
   /* Animation Timings */
   --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-smooth: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================================================
@@ -79,12 +69,38 @@ html {
 body {
   min-height: 100vh;
   overflow-x: hidden;
-  background: 
-    radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 85% 75%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
-    var(--bg-primary);
-  background-attachment: fixed;
+  background-color: var(--bg-primary);
   line-height: 1.6;
+}
+
+/* ==========================================================================
+   Full Viewport 3D WebGL Canvas
+   ========================================================================== */
+
+#webgl-canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: auto;
+  touch-action: pan-y;
+}
+
+#webgl-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Ambient 3D Vignette & Depth Mask */
+.vignette-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(4, 7, 10, 0.65) 100%);
 }
 
 /* ==========================================================================
@@ -97,7 +113,7 @@ body {
   left: 0;
   width: 100%;
   height: var(--header-height);
-  background: rgba(8, 13, 17, 0.85);
+  background: rgba(6, 10, 13, 0.82);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
@@ -115,21 +131,21 @@ body {
 }
 
 .brand-icon {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #10b981, #06b6d4);
   border-radius: var(--radius-sm);
   color: #fff;
-  font-size: 1.1rem;
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+  font-size: 1.15rem;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.5);
 }
 
 .brand-title {
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.02em;
   background: linear-gradient(90deg, #38ef7d, #00f2fe);
   -webkit-background-clip: text;
@@ -139,10 +155,10 @@ body {
 .brand-subtitle {
   font-size: 0.75rem;
   color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: 600;
   margin-left: 0.4rem;
-  padding: 0.15rem 0.5rem;
-  background: rgba(255, 255, 255, 0.06);
+  padding: 0.2rem 0.6rem;
+  background: rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-pill);
 }
 
@@ -156,10 +172,10 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background: var(--bg-surface-elevated);
+  background: rgba(16, 27, 36, 0.85);
   color: var(--text-primary);
   border: 1px solid var(--border-subtle);
-  padding: 0.45rem 0.9rem;
+  padding: 0.45rem 0.95rem;
   border-radius: var(--radius-pill);
   font-size: 0.85rem;
   font-weight: 600;
@@ -168,14 +184,10 @@ body {
 }
 
 .action-btn:hover {
-  background: rgba(56, 239, 125, 0.15);
+  background: rgba(56, 239, 125, 0.18);
   border-color: var(--border-focus);
   color: #fff;
   transform: translateY(-1px);
-}
-
-.action-btn:active {
-  transform: translateY(0);
 }
 
 .progress-track {
@@ -191,46 +203,60 @@ body {
   height: 100%;
   width: 0%;
   background: linear-gradient(90deg, #10b981, #00f2fe, #d946ef);
-  box-shadow: 0 0 8px rgba(0, 242, 254, 0.7);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.8);
   transition: width 0.1s linear;
 }
 
 /* ==========================================================================
-   Hero Intro Section
+   Scroll Runway (Spaced Scrollport Triggers)
    ========================================================================== */
 
-.hero-section {
-  min-height: 90vh;
+.scroll-runway {
+  position: relative;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.scroll-step-trigger {
+  min-height: 110vh;
+  position: relative;
+  pointer-events: none;
+}
+
+/* Hero Section (Start with Plant) */
+.hero-step-trigger {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: calc(var(--header-height) + 3rem) 1.5rem 4rem;
-  position: relative;
+  padding: calc(var(--header-height) + 2rem) 1.5rem 3rem;
+  pointer-events: auto;
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.4rem 1rem;
-  background: rgba(56, 239, 125, 0.1);
-  border: 1px solid rgba(56, 239, 125, 0.3);
+  padding: 0.4rem 1.1rem;
+  background: rgba(56, 239, 125, 0.12);
+  border: 1px solid rgba(56, 239, 125, 0.35);
   border-radius: var(--radius-pill);
   color: var(--accent-cell-wall);
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.88rem;
+  font-weight: 700;
   margin-bottom: 1.5rem;
   box-shadow: 0 0 20px rgba(56, 239, 125, 0.2);
 }
 
 .hero-title {
-  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-size: clamp(2.4rem, 5.5vw, 4.4rem);
   font-weight: 800;
-  line-height: 1.15;
-  margin-bottom: 1.25rem;
+  line-height: 1.12;
+  margin-bottom: 1rem;
   letter-spacing: -0.03em;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
 }
 
 .hero-title span {
@@ -241,11 +267,12 @@ body {
 }
 
 .hero-description {
-  max-width: 680px;
+  max-width: 650px;
   font-size: clamp(1.05rem, 2vw, 1.25rem);
   color: var(--text-secondary);
   margin-bottom: 2rem;
-  font-weight: 400;
+  font-weight: 500;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
 }
 
 /* Presenter Identification Card */
@@ -253,14 +280,14 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 1.15rem;
-  background: rgba(14, 25, 33, 0.92);
+  background: rgba(10, 18, 24, 0.88);
   border: 1px solid rgba(56, 239, 125, 0.35);
   border-radius: var(--radius-md);
   padding: 0.85rem 1.6rem;
   margin-bottom: 2.25rem;
-  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 239, 125, 0.15);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 239, 125, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   text-align: left;
   max-width: 520px;
   transition: all var(--transition-fast);
@@ -269,7 +296,7 @@ body {
 .presenter-credit-card:hover {
   border-color: var(--accent-cell-wall);
   transform: translateY(-2px);
-  box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 239, 125, 0.25);
+  box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 239, 125, 0.3);
 }
 
 .presenter-avatar {
@@ -315,13 +342,6 @@ body {
   font-weight: 600;
 }
 
-.hero-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -334,25 +354,25 @@ body {
   font-weight: 700;
   border: none;
   cursor: pointer;
-  box-shadow: 0 8px 24px -6px rgba(16, 185, 129, 0.6);
+  box-shadow: 0 8px 24px -6px rgba(16, 185, 129, 0.7);
   transition: all var(--transition-fast);
   text-decoration: none;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -6px rgba(16, 185, 129, 0.8);
+  box-shadow: 0 12px 30px -6px rgba(16, 185, 129, 0.9);
 }
 
 .scroll-indicator-cue {
-  margin-top: 3.5rem;
+  margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  font-weight: 500;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 600;
   animation: floatBounce 2.4s infinite ease-in-out;
 }
 
@@ -368,224 +388,116 @@ body {
 }
 
 /* ==========================================================================
-   Scrollytelling Core Layout
+   Microscope Zoom Transition Overlay (Macro to Micro)
    ========================================================================== */
 
-.scrolly-container {
-  position: relative;
-  max-width: 1440px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  padding: 0 1rem;
-}
-
-/* Split screen on tablet landscape and desktop */
-@media (min-width: 1024px) {
-  .scrolly-container {
-    grid-template-columns: 1.15fr 0.85fr;
-    column-gap: 2rem;
-    padding: 0 2rem;
-  }
-}
-
-/* Pinned Visual Graphic Container */
-.graphic-viewport {
-  position: sticky;
-  top: calc(var(--header-height) + 1rem);
-  height: calc(100vh - var(--header-height) - 5rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.cell-stage {
-  width: 100%;
-  height: 100%;
-  max-height: 640px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: auto;
-}
-
-.cell-svg-wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.85));
-}
-
-.cell-svg {
-  width: 100%;
-  height: 100%;
-  max-width: 580px;
-  max-height: 580px;
-  transform-origin: center center;
-  transition: transform var(--transition-slow);
-  overflow: visible;
-}
-
-/* Active Indicator Badge over Stage */
-.stage-status-badge {
-  position: absolute;
-  bottom: 0.5rem;
+.zoom-status-hud {
+  position: fixed;
+  top: calc(var(--header-height) + 1.2rem);
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(14, 25, 33, 0.9);
+  background: rgba(10, 18, 24, 0.85);
   border: 1px solid var(--border-subtle);
-  backdrop-filter: blur(8px);
-  padding: 0.4rem 1rem;
+  backdrop-filter: blur(12px);
+  padding: 0.45rem 1.25rem;
   border-radius: var(--radius-pill);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
+  gap: 0.6rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-secondary);
+  z-index: 50;
   pointer-events: none;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-  transition: all var(--transition-fast);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  transition: all var(--transition-smooth);
+  opacity: 0;
+  transform: translate(-50%, -10px);
 }
 
-.stage-status-dot {
-  width: 8px;
-  height: 8px;
+.zoom-status-hud.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.zoom-status-dot {
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: var(--accent-cell-wall);
-  box-shadow: 0 0 8px var(--accent-cell-wall);
+  box-shadow: 0 0 10px var(--accent-cell-wall);
 }
 
-/* ==========================================================================
-   SVG Organelle Interactive States & Styling
-   ========================================================================== */
-
-.organelle-group {
-  cursor: pointer;
-  transform-origin: center center;
-  transition: opacity var(--transition-smooth), 
-              filter var(--transition-smooth), 
-              transform var(--transition-smooth);
-}
-
-.organelle-group:hover {
-  filter: drop-shadow(0 0 14px currentColor) brightness(1.2);
-}
-
-/* State: Dimmed non-focused organelles */
-.organelle-group.is-dimmed {
-  opacity: 0.22;
-  filter: grayscale(40%) contrast(0.8);
-}
-
-/* State: Active focused organelle */
-.organelle-group.is-active {
-  opacity: 1 !important;
-  filter: drop-shadow(0 0 20px currentColor) brightness(1.28) !important;
-  transform: scale(1.04);
-}
-
-/* Specialized Organelle Highlights */
-#organelle-cell-wall.is-active {
-  stroke-width: 18;
-  filter: drop-shadow(0 0 24px #38ef7d) brightness(1.3);
-}
-
-#organelle-vacuole.is-active {
-  filter: drop-shadow(0 0 30px #06b6d4) brightness(1.25);
-}
-
-#organelle-chloroplasts.is-active {
-  filter: drop-shadow(0 0 26px #10b981) brightness(1.4);
-}
-
-#organelle-nucleus.is-active {
-  filter: drop-shadow(0 0 28px #d946ef) brightness(1.35);
-}
-
-#organelle-mitochondria.is-active {
-  filter: drop-shadow(0 0 24px #f97316) brightness(1.35);
-}
-
-#organelle-golgi.is-active {
-  filter: drop-shadow(0 0 22px #ec4899) brightness(1.35);
-}
-
-#organelle-er.is-active {
-  filter: drop-shadow(0 0 22px #8b5cf6) brightness(1.35);
-}
-
-#organelle-ribosomes.is-active {
-  filter: drop-shadow(0 0 20px #facc15) brightness(1.6);
-}
-
-/* Animated subtle pulse for active organelle */
-@keyframes organellePulse {
-  0%, 100% { transform: scale(1.02); }
-  50% { transform: scale(1.06); }
-}
-
-.organelle-group.is-active {
-  animation: organellePulse 2.8s infinite ease-in-out;
-}
-
-/* ==========================================================================
-   Scrolly Story Track & Cards
-   ========================================================================== */
-
-.story-track {
-  position: relative;
-  z-index: 20;
-  display: flex;
-  flex-direction: column;
-  padding: 4rem 0 10rem;
-}
-
-.story-step {
-  min-height: 85vh;
+/* 3D Interactive Orientation Hint */
+.interactive-hint {
+  position: fixed;
+  top: calc(var(--header-height) + 1.2rem);
+  right: 1.5rem;
+  background: rgba(10, 18, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.76rem;
+  color: var(--text-muted);
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 2rem 0;
+  gap: 0.4rem;
+  z-index: 45;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
 }
 
-.story-card {
+/* ==========================================================================
+   Floating HUD Narrative Cards (Appear / Disappear on Demand)
+   ========================================================================== */
+
+.hud-cards-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: calc(var(--header-height) + 1rem) 3rem 6rem;
+}
+
+.hud-card {
   width: 100%;
-  max-width: 540px;
+  max-width: 480px;
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 2rem 2.2rem;
-  box-shadow: var(--card-shadow);
-  position: relative;
-  transition: all var(--transition-smooth);
-  opacity: 0.35;
-  transform: translateY(20px) scale(0.97);
+  padding: 1.85rem 2.2rem;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 
+              0 0 35px -10px var(--card-theme-color, rgba(56, 239, 125, 0.3));
+  position: absolute;
+  right: 3rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px) scale(0.96);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.4s;
+  pointer-events: none;
 }
 
-/* When the step is in viewport */
-.story-step.is-current .story-card {
+/* Active State: Slides in with full visibility */
+.hud-card.is-active {
   opacity: 1;
+  visibility: visible;
   transform: translateY(0) scale(1);
-  border-color: var(--active-card-color, var(--border-focus));
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8),
-              0 0 30px -10px var(--active-card-color, rgba(56, 239, 125, 0.3));
+  pointer-events: auto;
+  border-color: var(--card-theme-color, var(--border-focus));
 }
 
 .card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .step-number {
@@ -615,17 +527,17 @@ body {
   font-size: 1.85rem;
   font-weight: 800;
   line-height: 1.2;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   color: #fff;
   letter-spacing: -0.02em;
 }
 
 .card-quick-summary {
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 500;
   color: var(--card-theme-color, #a7f3d0);
   margin-bottom: 1.25rem;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .card-details-list {
@@ -633,13 +545,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.4rem;
 }
 
 .card-details-list li {
   position: relative;
-  padding-left: 1.5rem;
-  font-size: 0.95rem;
+  padding-left: 1.4rem;
+  font-size: 0.94rem;
   color: var(--text-secondary);
   line-height: 1.5;
 }
@@ -656,7 +568,7 @@ body {
   background: rgba(255, 255, 255, 0.04);
   border-left: 3px solid var(--card-theme-color, var(--accent-cell-wall));
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: 0.85rem 1rem;
+  padding: 0.8rem 1rem;
   font-size: 0.88rem;
   color: var(--text-primary);
 }
@@ -667,10 +579,10 @@ body {
   gap: 0.35rem;
   font-weight: 700;
   color: var(--card-theme-color, var(--accent-cell-wall));
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
 }
 
 /* ==========================================================================
@@ -682,9 +594,9 @@ body {
   bottom: 1.25rem;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(10, 18, 24, 0.88);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: rgba(8, 14, 20, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-pill);
   padding: 0.35rem 0.5rem;
@@ -692,7 +604,7 @@ body {
   align-items: center;
   gap: 0.25rem;
   z-index: 90;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
   max-width: 95vw;
   overflow-x: auto;
   scrollbar-width: none;
@@ -709,7 +621,7 @@ body {
   font-family: var(--font-main);
   font-size: 0.78rem;
   font-weight: 600;
-  padding: 0.4rem 0.75rem;
+  padding: 0.42rem 0.8rem;
   border-radius: var(--radius-pill);
   cursor: pointer;
   white-space: nowrap;
@@ -720,7 +632,7 @@ body {
 }
 
 .dock-pill:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.09);
   color: #fff;
 }
 
@@ -728,7 +640,7 @@ body {
   background: var(--pill-color, var(--accent-cell-wall));
   color: #04100c;
   font-weight: 700;
-  box-shadow: 0 0 12px var(--pill-color, rgba(56, 239, 125, 0.5));
+  box-shadow: 0 0 14px var(--pill-color, rgba(56, 239, 125, 0.6));
 }
 
 /* ==========================================================================
@@ -736,17 +648,18 @@ body {
    ========================================================================== */
 
 .quiz-section {
-  max-width: 900px;
-  margin: 6rem auto 8rem;
-  padding: 3rem 1.5rem;
-  background: linear-gradient(180deg, rgba(16, 27, 36, 0.8) 0%, rgba(10, 18, 24, 0.95) 100%);
+  position: relative;
+  max-width: 860px;
+  margin: 4rem auto 8rem;
+  padding: 3rem 2rem;
+  background: linear-gradient(180deg, rgba(14, 24, 32, 0.92) 0%, rgba(8, 14, 20, 0.97) 100%);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85);
   text-align: center;
-  position: relative;
-  z-index: 25;
+  z-index: 50;
+  pointer-events: auto;
 }
 
 .quiz-badge {
@@ -780,7 +693,7 @@ body {
 }
 
 .quiz-card {
-  background: var(--bg-secondary);
+  background: rgba(8, 14, 20, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
   padding: 2rem;
@@ -921,12 +834,15 @@ body {
    ========================================================================== */
 
 .presentation-footer {
+  position: relative;
   text-align: center;
   padding: 3rem 1.5rem 6.5rem;
   color: var(--text-muted);
   font-size: 0.9rem;
   border-top: 1px solid var(--border-subtle);
-  background: var(--bg-primary);
+  background: rgba(6, 10, 13, 0.95);
+  z-index: 50;
+  pointer-events: auto;
 }
 
 .footer-title {
@@ -961,41 +877,43 @@ body {
    Responsive Adaptations (Tablets & Mobile)
    ========================================================================== */
 
-/* Tablet Portrait & Mobile (< 1024px) */
+/* Tablet Landscape & Desktop (> 1024px) */
+@media (min-width: 1024px) {
+  .hud-cards-stage {
+    padding-right: 4rem;
+  }
+  .hud-card {
+    right: 4rem;
+    max-width: 480px;
+  }
+}
+
+/* Tablet Portrait & Mobile (< 1023px) */
 @media (max-width: 1023px) {
-  .graphic-viewport {
-    position: sticky;
-    top: var(--header-height);
-    height: 48vh;
-    padding-top: 0.5rem;
-    background: radial-gradient(circle at center, rgba(16, 27, 36, 0.92) 0%, rgba(8, 13, 17, 0.96) 100%);
-    border-bottom: 1px solid var(--border-subtle);
+  .hud-cards-stage {
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0 1rem calc(var(--header-height) + 4rem);
   }
 
-  .cell-stage {
-    max-height: 100%;
+  .hud-card {
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, 30px) scale(0.96);
+    max-width: 92vw;
+    padding: 1.35rem 1.5rem;
   }
 
-  .cell-svg {
-    max-width: 320px;
-    max-height: 320px;
-  }
-
-  .story-track {
-    padding-top: 1rem;
-  }
-
-  .story-step {
-    min-height: 60vh;
-    padding: 1.5rem 0;
-  }
-
-  .story-card {
-    padding: 1.5rem;
+  .hud-card.is-active {
+    transform: translate(-50%, 0) scale(1);
   }
 
   .card-title {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
+  }
+
+  .interactive-hint {
+    display: none;
   }
 
   .presenter-dock {
@@ -1016,13 +934,5 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-  
-  .organelle-group.is-active {
-    animation: none !important;
-  }
-  
-  .scroll-indicator-cue {
-    animation: none !important;
   }
 }
