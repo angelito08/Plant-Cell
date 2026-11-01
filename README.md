@@ -1,6 +1,11 @@
 # Interactive Plant Cell Scrollytelling Experience
 
-An interactive, high-performance web presentation designed for middle-school science education (primary/secondary school, presented by a 12-year-old student). The application combines **scrollytelling**, hardware-accelerated SVG animations, and a bioluminescent dark laboratory theme to make learning plant cytology intuitive, memorable, and visually engaging.
+An interactive, high-performance web presentation created for **Luna María Estrada Nieto** for her **Ciencias (Science)** class at **Escuela Secundaria Federal #60**. The application combines **scrollytelling**, hardware-accelerated SVG animations, and a bioluminescent dark laboratory theme to make learning plant cytology intuitive, memorable, and visually engaging.
+
+* **Student Presenter:** Luna María Estrada Nieto
+* **School:** Escuela Secundaria Federal #60
+* **Subject:** Ciencias (Biology / Natural Sciences)
+* **Target Audience:** Middle School / Secondary Education (12-year-old students)
 
 ---
 

@@ -486,11 +486,11 @@ function initQuizModule() {
     scoreNumber.textContent = `${score} / ${quizData.length}`;
 
     if (score === quizData.length) {
-      scoreMessage.innerHTML = '🌟 <strong>¡Increíble! ¡Puntaje perfecto!</strong> Eres un experto en la célula vegetal. ¡Felicidades!';
+      scoreMessage.innerHTML = '🌟 <strong>¡Increíble! ¡Puntaje perfecto!</strong> Eres un experto en la célula vegetal. ¡Muchas gracias por participar en la presentación de Luna María Estrada Nieto!';
     } else if (score >= 2) {
-      scoreMessage.innerHTML = '👏 <strong>¡Muy bien hecho!</strong> Demostraste un gran conocimiento sobre los organelos celulares.';
+      scoreMessage.innerHTML = '👏 <strong>¡Muy bien hecho!</strong> Demostraste un gran conocimiento sobre los organelos celulares. ¡Gracias por participar con Luna María!';
     } else {
-      scoreMessage.innerHTML = '💪 <strong>¡Buen intento!</strong> Puedes volver a explorar la página y repasar para ser un maestro botánico.';
+      scoreMessage.innerHTML = '💪 <strong>¡Buen intento!</strong> Puedes volver a explorar la página y repasar para convertirte en un experto botánico.';
     }
     soundManager.playSuccess();
   }

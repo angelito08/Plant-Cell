@@ -244,8 +244,75 @@ body {
   max-width: 680px;
   font-size: clamp(1.05rem, 2vw, 1.25rem);
   color: var(--text-secondary);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   font-weight: 400;
+}
+
+/* Presenter Identification Card */
+.presenter-credit-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.15rem;
+  background: rgba(14, 25, 33, 0.92);
+  border: 1px solid rgba(56, 239, 125, 0.35);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.6rem;
+  margin-bottom: 2.25rem;
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 239, 125, 0.15);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  text-align: left;
+  max-width: 520px;
+  transition: all var(--transition-fast);
+}
+
+.presenter-credit-card:hover {
+  border-color: var(--accent-cell-wall);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 239, 125, 0.25);
+}
+
+.presenter-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981, #00f2fe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+  flex-shrink: 0;
+}
+
+.presenter-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.presenter-role {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.presenter-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(90deg, #f1f5f9, #a7f3d0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+  margin: 0.1rem 0;
+}
+
+.presenter-school {
+  font-size: 0.84rem;
+  color: var(--accent-membrane);
+  font-weight: 600;
 }
 
 .hero-buttons {
@@ -855,16 +922,30 @@ body {
 
 .presentation-footer {
   text-align: center;
-  padding: 3rem 1.5rem 6rem;
+  padding: 3rem 1.5rem 6.5rem;
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   border-top: 1px solid var(--border-subtle);
   background: var(--bg-primary);
 }
 
-.footer-credit {
-  margin-top: 0.5rem;
+.footer-title {
+  color: var(--text-primary);
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.footer-student {
+  font-size: 1.05rem;
+  color: var(--accent-cell-wall);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.footer-school {
   color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 /* ==========================================================================

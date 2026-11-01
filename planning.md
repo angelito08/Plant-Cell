@@ -3,8 +3,10 @@
 ## 1. Resumen Ejecutivo y Objetivos
 
 * **Propósito:** Desarrollar una aplicación web interactiva y altamente visual basada en la técnica de *scrollytelling* (narración guiada por scroll), orientada a explicar la estructura y los organelos de la célula vegetal.
-* **Audiencia Meta:** Proyecto escolar de educación básica (estudiantes de ~12 años / 1° de secundaria).
-* **Presentadora:** Niña de 12 años que expondrá frente a su clase y profesores.
+* **Audiencia Meta:** Proyecto escolar de educación básica (1° de secundaria).
+* **Presentadora Oficial:** **Luna María Estrada Nieto** (12 años).
+* **Institución Educativa:** **Escuela Secundaria Federal #60**.
+* **Materia / Asignatura:** **Ciencias** (Ciencias Naturales / Biología).
 * **Decisiones de Diseño Confirmadas:**
   * **Estilo Visual:** Modo Bioluminiscente / Noche Científica (Fondo oscuro tipo laboratorio espacial/microscopio `#090e11` / `#0f172a`, con organelos brillantes en tonos neón botánicos: esmeralda, cian, dorado, magenta y púrpura resplandecientes). Ideal para proyectores y pantallas de tabletas con alto contraste.
   * **Herramientas de Exposición:** Dock de navegación rápida por organelo para la expositora, botón de pantalla completa y Mini-Quiz interactivo al final ("Desafío Celular") con retroalimentación inmediata para involucrar al grupo.
