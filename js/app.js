@@ -1395,34 +1395,64 @@ class PlantCell3DApp {
   initScrollEngine() {
     const observerOptions = {
       root: null,
-      rootMargin: '-15% 0px -15% 0px',
-      threshold: [0.1, 0.25, 0.5]
+      rootMargin: '-10% 0px -10% 0px',
+      threshold: [0.05, 0.15, 0.3, 0.5, 0.7]
+    };
+
+    const ratioMap = new Map();
+    let scheduledUpdate = null;
+
+    const evaluateDominantStep = () => {
+      scheduledUpdate = null;
+      let maxRatio = 0;
+      let dominantKey = null;
+
+      ratioMap.forEach((ratio, key) => {
+        if (ratio > maxRatio) {
+          maxRatio = ratio;
+          dominantKey = key;
+        }
+      });
+
+      // Only switch if dominant step has clear presence and differs from current
+      if (dominantKey && maxRatio >= 0.12 && dominantKey !== this.activeStepKey) {
+        this.activateStep(dominantKey);
+      }
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && entry.intersectionRatio > 0.08) {
-          const stepKey = entry.target.dataset.step;
-          if (stepKey && stepKey !== this.activeStepKey) {
-            this.activateStep(stepKey);
-          }
+        const stepKey = entry.target.dataset.step;
+        if (!stepKey) return;
+        if (entry.isIntersecting) {
+          ratioMap.set(stepKey, entry.intersectionRatio);
+        } else {
+          ratioMap.delete(stepKey);
         }
       });
+
+      if (!scheduledUpdate) {
+        scheduledUpdate = requestAnimationFrame(evaluateDominantStep);
+      }
     }, observerOptions);
 
     this.stepTriggers.forEach((trigger) => observer.observe(trigger));
 
-    // Scroll Progress Bar Update & Quiz Runway Trigger
+    // Scroll Progress Bar Update & Edge Boundaries
     window.addEventListener('scroll', () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
+      const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
       if (this.progressFill) {
         this.progressFill.style.width = `${progress}%`;
       }
 
-      // Seamless fallback: when user scrolls near the end of the page to the quiz
-      if (progress > 94 && this.activeStepKey !== 'quiz') {
+      // Edge boundary 1: Top of the page resets cleanly to hero
+      if (scrollTop < 80 && this.activeStepKey !== 'hero') {
+        this.activateStep('hero');
+      }
+      // Edge boundary 2: Scroll runway near bottom activates quiz
+      else if (progress > 93 && this.activeStepKey !== 'quiz') {
         this.activateStep('quiz');
       }
     }, { passive: true });
@@ -1598,25 +1628,103 @@ class PlantCell3DApp {
     const btn = document.getElementById('fullscreen-toggle-btn');
     if (!btn) return;
 
-    btn.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
+    const isFsActive = () => {
+      return !!(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement ||
+        document.body.classList.contains('is-fullscreen-app')
+      );
+    };
+
+    const updateBtnUI = (active) => {
+      if (active) {
         btn.innerHTML = `
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
           </svg>
           Salir
         `;
+        btn.setAttribute('aria-label', 'Salir de pantalla completa');
       } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-          btn.innerHTML = `
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-            Pantalla Completa
-          `;
+        btn.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+          </svg>
+          Pantalla Completa
+        `;
+        btn.setAttribute('aria-label', 'Activar pantalla completa');
+      }
+    };
+
+    btn.addEventListener('click', async () => {
+      const active = isFsActive();
+
+      if (!active) {
+        // Attempt native Fullscreen API with vendor prefixes
+        const docEl = document.documentElement;
+        const requestMethod = docEl.requestFullscreen ||
+                              docEl.webkitRequestFullscreen ||
+                              docEl.mozRequestFullScreen ||
+                              docEl.msRequestFullscreen;
+
+        let nativeSuccess = false;
+        if (requestMethod) {
+          try {
+            const promise = requestMethod.call(docEl);
+            if (promise && typeof promise.then === 'function') {
+              await promise;
+            }
+            nativeSuccess = true;
+          } catch (err) {
+            nativeSuccess = false;
+          }
         }
+
+        // If native fullscreen was blocked, rejected, or unsupported (e.g. iPadOS Safari)
+        if (!nativeSuccess && !document.fullscreenElement && !document.webkitFullscreenElement) {
+          document.body.classList.add('is-fullscreen-app');
+          updateBtnUI(true);
+        }
+      } else {
+        // Exit active fullscreen (either fallback or native)
+        if (document.body.classList.contains('is-fullscreen-app')) {
+          document.body.classList.remove('is-fullscreen-app');
+          updateBtnUI(false);
+        }
+
+        const exitMethod = document.exitFullscreen ||
+                           document.webkitExitFullscreen ||
+                           document.mozCancelFullScreen ||
+                           document.msExitFullscreen;
+
+        if (exitMethod && (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement)) {
+          try {
+            const promise = exitMethod.call(document);
+            if (promise && typeof promise.then === 'function') {
+              await promise;
+            }
+          } catch (e) {}
+        }
+        updateBtnUI(false);
+      }
+    });
+
+    // Listen to native fullscreen changes (e.g. user pressing ESC or hardware gestures)
+    const onFsChange = () => {
+      updateBtnUI(isFsActive());
+    };
+
+    ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(evt => {
+      document.addEventListener(evt, onFsChange);
+    });
+
+    // Keyboard ESC listener for in-app fallback
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.body.classList.contains('is-fullscreen-app')) {
+        document.body.classList.remove('is-fullscreen-app');
+        updateBtnUI(false);
       }
     });
   }
@@ -1629,15 +1737,15 @@ class PlantCell3DApp {
 
     const config = this.stepConfigs[this.activeStepKey] || this.stepConfigs['overview'];
 
-    // Smooth Lerp Camera Position
-    this.currentCamPos.x += (this.targetCamPos.x - this.currentCamPos.x) * 0.055;
-    this.currentCamPos.y += (this.targetCamPos.y - this.currentCamPos.y) * 0.055;
-    this.currentCamPos.z += (this.targetCamPos.z - this.currentCamPos.z) * 0.055;
+    // Smooth Lerp Camera Position (Responsive 0.085 factor)
+    this.currentCamPos.x += (this.targetCamPos.x - this.currentCamPos.x) * 0.085;
+    this.currentCamPos.y += (this.targetCamPos.y - this.currentCamPos.y) * 0.085;
+    this.currentCamPos.z += (this.targetCamPos.z - this.currentCamPos.z) * 0.085;
 
     // Smooth Lerp LookAt Target
-    this.currentLookAt.x += (this.targetLookAt.x - this.currentLookAt.x) * 0.055;
-    this.currentLookAt.y += (this.targetLookAt.y - this.currentLookAt.y) * 0.055;
-    this.currentLookAt.z += (this.targetLookAt.z - this.currentLookAt.z) * 0.055;
+    this.currentLookAt.x += (this.targetLookAt.x - this.currentLookAt.x) * 0.085;
+    this.currentLookAt.y += (this.targetLookAt.y - this.currentLookAt.y) * 0.085;
+    this.currentLookAt.z += (this.targetLookAt.z - this.currentLookAt.z) * 0.085;
 
     // Smooth Tilt Dampening
     this.tiltX += (this.targetTiltX - this.tiltX) * 0.08;
@@ -1655,19 +1763,19 @@ class PlantCell3DApp {
     );
     this.camera.lookAt(this.currentLookAt.x, this.currentLookAt.y, this.currentLookAt.z);
 
-    // Cross-fade visibility between Plant & Cell groups
+    // Cross-fade visibility between Plant & Cell groups without abrupt popping
     if (this.plantGroup) {
-      this.plantGroup.visible = config.plantVisible;
       const targetScale = config.plantScale;
-      this.plantGroup.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.08);
+      this.plantGroup.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.085);
+      this.plantGroup.visible = config.plantVisible || (this.plantGroup.scale.x > 0.05);
       // Gentle floating plant sway
       this.plantGroup.rotation.y = Math.sin(Date.now() * 0.0008) * 0.12 + this.tiltY * 0.5;
     }
 
     if (this.cellGroup) {
-      this.cellGroup.visible = config.cellVisible;
       const targetScale = config.cellScale;
-      this.cellGroup.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.08);
+      this.cellGroup.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.085);
+      this.cellGroup.visible = config.cellVisible || (this.cellGroup.scale.x > 0.05);
       // Subtle organic breathing rotation
       this.cellGroup.rotation.y = Math.sin(Date.now() * 0.0005) * 0.08 + this.tiltY * 0.4;
       this.cellGroup.rotation.x = this.tiltX * 0.4;

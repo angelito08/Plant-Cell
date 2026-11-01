@@ -60,7 +60,6 @@ html {
   font-family: var(--font-main);
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
@@ -477,10 +476,10 @@ body {
   right: 3rem;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(30px) scale(0.96);
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.4s;
+  transform: translateY(22px) scale(0.97);
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.28s;
   pointer-events: none;
 }
 
@@ -489,6 +488,9 @@ body {
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
+              visibility 0.35s;
   pointer-events: auto;
   border-color: var(--card-theme-color, var(--border-focus));
 }
@@ -933,6 +935,26 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   In-App Cinematic Fullscreen Mode (Safari / iPad / Tablet Fallback)
+   ========================================================================== */
+body.is-fullscreen-app {
+  overflow-x: hidden;
+}
+
+body.is-fullscreen-app .presentation-header {
+  background: rgba(8, 14, 20, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.is-fullscreen-app #fullscreen-toggle-btn {
+  background: rgba(56, 239, 125, 0.2);
+  border-color: var(--accent-cell-wall);
+  color: #ffffff;
+}
+

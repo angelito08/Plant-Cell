@@ -194,5 +194,34 @@ Al presentar los organelos en 3D, estos requerían mayor textura táctil/biológ
      - Rojo Rubí / Coral Neón Bioluminiscente (`#ff2a5f` / `0xff1744`), un color que contrasta de manera dramática contra el violeta del retículo endoplasmático (`#8b5cf6`), el azul zafiro de la vacuola y el verde esmeralda de la pared celular.
    - **Acento en UI:** Actualizar el color de la tarjeta de Ribosomas y su píldora en el dock a Rojo Coral / Rubí (`#ff2a5f`).
 
+---
+
+## 9. Optimización de Fluidez: Suavizado de Scroll, Eliminación de Jitter y Reparación de Pantalla Completa
+
+### 9.1 Diagnóstico de la Experiencia de Usuario
+1. **Scroll Torpe / Sensación Pesada:**
+   * La propiedad global `scroll-behavior: smooth` en la etiqueta `html` entraba en conflicto con la inercia natural del trackpad y del scroll en macOS/iOS, provocando una doble amortiguación que retrasaba la respuesta del scroll e impedía un control fino del desplazamiento.
+2. **Glitch / Jitter entre Pasos:**
+   * En `IntersectionObserver`, al intersectar dos secciones adyacentes simultáneamente durante el desplazamiento, ambas se procesaban en el bucle `forEach`, activando y desactivando pasos en el mismo fotograma. Esto producía un salto errático de cámara, reseteos continuos de materiales y cambios bruscos en las tarjetas HUD.
+   * La velocidad de interpolación de cámara (`lerp: 0.055`) era demasiado baja, lo que hacía que la cámara se quedara rezagada frente al scroll del usuario.
+   * La visibilidad de la planta (`plantGroup`) y la célula (`cellGroup`) se conmutaba con un booleano brusco, causando un corte visual perceptible.
+3. **Falla en el Botón de Pantalla Completa:**
+   * En Safari (macOS / iPadOS), la API estándar `requestFullscreen()` no se invocaba con compatibilidad para prefijos webkit (`webkitRequestFullscreen`), provocando excepciones o rechazos silenciosos.
+   * En iPads y navegadores móviles de Apple, el API de pantalla completa nativo para elementos DOM está restringido, dejando al usuario sin respuesta al pulsar el botón.
+   * Faltaban observadores de evento `fullscreenchange` y `webkitfullscreenchange` para mantener sincronizado el texto del botón si el usuario salía mediante la tecla Escape o gestos del sistema.
+
+### 9.2 Plan de Solución e Implementación
+1. **Fluidez Natural del Scroll:**
+   * Retirar `scroll-behavior: smooth` global de `html` en `css/styles.css`, permitiendo que el hardware responda de inmediato con 60 FPS estables. La navegación asistida mediante clics en el dock seguirá empleando `scrollIntoView({ behavior: 'smooth' })`.
+2. **Eliminación Definitiva de Jitter (Paso Dominante Único por RAF):**
+   * Implementar un mapa de proporciones de visibilidad (`triggerRatios = new Map()`).
+   * En cada fotograma de animación (`requestAnimationFrame`), seleccionar exclusivamente la sección con **mayor porcentaje de intersección visible** en pantalla.
+   * Aumentar el factor de seguimiento de la cámara a `0.085`, logrando un vuelo cinematográfico responsivo que sigue al scroll sin rezago.
+   * Suavizar la transición entre la planta y la célula de modo que solo se desactiven cuando su escala se aproxime a cero.
+3. **Sistema de Pantalla Completa Híbrido (Dual Mode):**
+   * Soporte universal con prefijos: `requestFullscreen`, `webkitRequestFullscreen`, `mozRequestFullScreen`, `msRequestFullscreen`.
+   * **Modo Presentación In-App Fallback:** Si el navegador (como Safari en iPad) rechaza o no soporta el fullscreen nativo, activar la clase `.is-fullscreen-app` en el `body`, fijando la interfaz en pantalla completa inmersiva (`100dvh`), ocultando distracciones y asegurando que Luna María pueda proyectar sin problemas.
+   * Sincronización automática de estado con `fullscreenchange`, `webkitfullscreenchange` y tecla `Escape`.
+
 
 
