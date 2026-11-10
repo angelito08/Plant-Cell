@@ -1,12 +1,15 @@
 # Interactive Plant Cell Scrollytelling Experience — Minimalist & Didactic 3D
 
-An interactive, high-performance 3D web presentation created for **Luna María Estrada Nieto** for her **Ciencias (Science)** class at **Escuela Secundaria Federal #60** (Group **1° "D"**). The application features an immersive **Three.js WebGL engine** designed with a **clean, minimalist, and didactic aesthetic** that uses the color palette from Luna's physical school model (lime green, canary yellow, ruby red, sky blue, magenta, orange, and purple) with soft museum lighting and zero futuristic neon clutter.
+An interactive, high-performance 3D web presentation created collaboratively by **Angel Estrada** and his daughter **Luna María Estrada Nieto** for her **Ciencias (Science)** class at **Escuela Secundaria Federal #60** (Group **1° "D"**). This is a school science project built exclusively for **educational and didactic purposes**. An AI Large Language Model (LLM) was utilized throughout the development process as a learning and educational tool.
 
+* **Authors & Developers:** Angel Estrada & Luna María Estrada Nieto
 * **Student Presenter:** Luna María Estrada Nieto
 * **Grade & Group:** 1° "D"
 * **School:** Escuela Secundaria Federal #60
 * **Subject:** Ciencias (Biology / Natural Sciences)
 * **Target Audience:** Middle School / Secondary Education (12-year-old students)
+* **Educational Purpose:** School project designed strictly for non-commercial didactic and educational learning
+* **AI Tooling Disclosure:** Developed with the educational assistance of a Large Language Model (LLM) for pair programming and pedagogy
 
 ---
 
@@ -139,3 +142,11 @@ http://localhost:8888/Plant-Cell/
 
 - **`prefers-reduced-motion`:** Supports accessibility media query by suppressing intensive looping animations and continuous transitions for sensitive users.
 - **Hardware Acceleration:** WebGL and CSS animations prioritize `transform` and `opacity` properties to prevent CPU layout reflows and battery drain on portable devices.
+
+---
+
+## 🎓 Educational Purpose & AI Disclosure
+
+* **Educational Context:** This application was developed as a family collaboration between **Angel Estrada** and his daughter **Luna María Estrada Nieto** to present her physical model and study the organelles of the plant cell in her middle school science class at **Escuela Secundaria Federal #60**.
+* **Non-Commercial License:** All 3D assets, procedural textures, interactive quizzes, and educational content are provided exclusively for academic and learning purposes.
+* **AI Assistance:** An AI Large Language Model (LLM) was utilized as an educational pair-programming tool, assisting in code optimization, pedagogical clarity, and accessible design.
