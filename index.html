@@ -1,33 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>La Célula Vegetal | Luna María Estrada Nieto - Secundaria Federal #60</title>
-  <meta name="description" content="Presentación interactiva 3D con zoom de planta a célula vegetal desarrollada por Angel Estrada y su hija Luna María Estrada Nieto para la materia de Ciencias en la Escuela Secundaria Federal #60. Proyecto escolar para fines didácticos y educativos.">
+  <meta name="description"
+    content="Presentación interactiva 3D con zoom de planta a célula vegetal desarrollada por Angel Estrada y su hija Luna María Estrada Nieto para la materia de Ciencias en la Escuela Secundaria Federal #60. Proyecto escolar para fines didácticos y educativos.">
   <meta name="author" content="Angel Estrada & Luna María Estrada Nieto">
   <meta name="creator" content="Angel Estrada, Luna María Estrada Nieto">
   <meta name="publisher" content="Escuela Secundaria Federal #60">
   <meta name="application-name" content="Célula Vegetal 3D Didáctica">
-  <meta name="educational-purpose" content="Proyecto escolar de Ciencias desarrollado por Angel Estrada y su hija Luna María Estrada Nieto exclusivamente con fines didácticos y educativos, asistido por un modelo de lenguaje (LLM) con propósitos formativos.">
-  <meta name="keywords" content="célula vegetal, organelos, biología escolar, secundaria federal 60, ciencias, 3d, Three.js, educación, Luna María Estrada Nieto, Angel Estrada, LLM educativo">
+  <meta name="educational-purpose"
+    content="Proyecto escolar de Ciencias desarrollado por Angel Estrada y su hija Luna María Estrada Nieto exclusivamente con fines didácticos y educativos, asistido por un modelo de lenguaje (LLM) con propósitos formativos.">
+  <meta name="keywords"
+    content="célula vegetal, organelos, biología escolar, secundaria federal 60, ciencias, 3d, Three.js, educación, Luna María Estrada Nieto, Angel Estrada, LLM educativo">
 
   <!-- Open Graph / Social Sharing Metadata -->
   <meta property="og:title" content="La Célula Vegetal 3D | Proyecto Escolar Didáctico">
-  <meta property="og:description" content="Proyecto escolar de Ciencias desarrollado por Angel Estrada y su hija Luna María Estrada Nieto con fines educativos, asistido por LLM.">
+  <meta property="og:description"
+    content="Proyecto escolar de Ciencias desarrollado por Angel Estrada y su hija Luna María Estrada Nieto con fines educativos, asistido por LLM.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Célula Vegetal Didáctica">
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='8' fill='%2315803d'/%3E%3Cpath d='M18 27v-9' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M18 18c-2.5-3-6-3.5-8-3.5 0 3 1.5 6.5 4.5 7.5 1.5.5 3 0 3.5-.5' fill='%23ffffff' fill-opacity='0.4' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M18 15c2.5-3 6-3.5 8-3.5 0 3-1.5 6.5-4.5 7.5-1.5.5-3 0-3.5-.5' fill='%23ffffff' fill-opacity='0.4' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-  
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='8' fill='%2315803d'/%3E%3Cpath d='M18 27v-9' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M18 18c-2.5-3-6-3.5-8-3.5 0 3 1.5 6.5 4.5 7.5 1.5.5 3 0 3.5-.5' fill='%23ffffff' fill-opacity='0.4' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M18 15c2.5-3 6-3.5 8-3.5 0 3-1.5 6.5-4.5 7.5-1.5.5-3 0-3.5-.5' fill='%23ffffff' fill-opacity='0.4' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
   <!-- Google Fonts for Modern Scientific Aesthetic -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet">
+
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
   <!-- Full-Screen 3D WebGL Canvas Layer -->
@@ -40,10 +49,11 @@
   <header class="presentation-header" id="main-header">
     <div class="brand-wrapper">
       <div class="brand-icon" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22v-9"/>
-          <path d="M12 13c-2.5-3-6-3.5-8-3.5 0 3 1.5 6.5 4.5 7.5 1.5.5 3 0 3.5-.5" fill="#ffffff" fill-opacity="0.35"/>
-          <path d="M12 10c2.5-3 6-3.5 8-3.5 0 3-1.5 6.5-4.5 7.5-1.5.5-3 0-3.5-.5" fill="#ffffff" fill-opacity="0.35"/>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22v-9" />
+          <path d="M12 13c-2.5-3-6-3.5-8-3.5 0 3 1.5 6.5 4.5 7.5 1.5.5 3 0 3.5-.5" fill="#ffffff" fill-opacity="0.35" />
+          <path d="M12 10c2.5-3 6-3.5 8-3.5 0 3-1.5 6.5-4.5 7.5-1.5.5-3 0-3.5-.5" fill="#ffffff" fill-opacity="0.35" />
         </svg>
       </div>
       <div>
@@ -55,7 +65,7 @@
     <div class="header-controls">
       <button class="action-btn" id="fullscreen-toggle-btn" title="Activar Pantalla Completa">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
         </svg>
         Pantalla Completa
       </button>
@@ -90,8 +100,10 @@
         Nos acercamos con el microscopio a la superficie de una hoja verde.
       </p>
       <ul class="card-details-list">
-        <li><strong>De lo visible a lo invisible:</strong> La hoja está formada por millones de pequeños bloques constructores llamados células vegetales.</li>
-        <li><strong>Atravesando los tejidos:</strong> Cruzamos la cutícula protectora para entrar al fascinante mundo celular interior.</li>
+        <li><strong>De lo visible a lo invisible:</strong> La hoja está formada por millones de pequeños bloques
+          constructores llamados células vegetales.</li>
+        <li><strong>Atravesando los tejidos:</strong> Cruzamos la cutícula protectora para entrar al fascinante mundo
+          celular interior.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
@@ -110,12 +122,15 @@
         ¡Llegamos al nivel celular! Observa el corte transversal con todos los organelos en 3D.
       </p>
       <ul class="card-details-list">
-        <li><strong>Forma prismática:</strong> A diferencia de las células animales que son redondeadas, las vegetales tienen paredes firmes y geométricas.</li>
-        <li><strong>Organelos en acción:</strong> Cada estructura cumple una misión indispensable para mantener viva y nutrida a la planta.</li>
+        <li><strong>Forma prismática:</strong> A diferencia de las células animales que son redondeadas, las vegetales
+          tienen paredes firmes y geométricas.</li>
+        <li><strong>Organelos en acción:</strong> Cada estructura cumple una misión indispensable para mantener viva y
+          nutrida a la planta.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
-        La célula vegetal es completamente autosuficiente: ¡puede fabricar su propia comida usando solo agua, aire y luz solar!
+        La célula vegetal es completamente autosuficiente: ¡puede fabricar su propia comida usando solo agua, aire y luz
+        solar!
       </div>
     </article>
 
@@ -130,12 +145,15 @@
         La armadura exterior gruesa y resistente que protege a la célula y le da soporte rígido.
       </p>
       <ul class="card-details-list">
-        <li><strong>Estructura y fuerza:</strong> Permite que los árboles y plantas crezcan altos hacia el sol sin doblarse y sin necesitar huesos.</li>
-        <li><strong>Hecha de Celulosa:</strong> Fibras vegetales súper resistentes (¡el mismo componente con el que fabricamos el papel!).</li>
+        <li><strong>Estructura y fuerza:</strong> Permite que los árboles y plantas crezcan altos hacia el sol sin
+          doblarse y sin necesitar huesos.</li>
+        <li><strong>Hecha de Celulosa:</strong> Fibras vegetales súper resistentes (¡el mismo componente con el que
+          fabricamos el papel!).</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
-        ¡Solo las plantas, hongos y algas tienen pared celular! Los animales y humanos no la tenemos, por eso nuestra piel es suave y flexible.
+        ¡Solo las plantas, hongos y algas tienen pared celular! Los animales y humanos no la tenemos, por eso nuestra
+        piel es suave y flexible.
       </div>
     </article>
 
@@ -150,12 +168,15 @@
         Una capa delgada y flexible ubicada justo en el interior de la pared celular.
       </p>
       <ul class="card-details-list">
-        <li><strong>Filtro inteligente:</strong> Revisa y decide qué sustancias pueden entrar (agua, nutrientes) y cuáles deben salir (desechos).</li>
-        <li><strong>Permeabilidad selectiva:</strong> Funciona exactamente como el policía en la puerta de una escuela.</li>
+        <li><strong>Filtro inteligente:</strong> Revisa y decide qué sustancias pueden entrar (agua, nutrientes) y
+          cuáles deben salir (desechos).</li>
+        <li><strong>Permeabilidad selectiva:</strong> Funciona exactamente como el policía en la puerta de una escuela.
+        </li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
-        Es extremadamente delgada (miles de veces más fina que un cabello), pero contiene sensores para avisar a la célula si la planta tiene sed.
+        Es extremadamente delgada (miles de veces más fina que un cabello), pero contiene sensores para avisar a la
+        célula si la planta tiene sed.
       </div>
     </article>
 
@@ -170,8 +191,10 @@
         El fluido gelatinoso transparente que llena todo el espacio interior de la célula.
       </p>
       <ul class="card-details-list">
-        <li><strong>Soporte acuoso:</strong> En él flotan, se protegen y se mueven todos los demás organelos celulares.</li>
-        <li><strong>Rutas de transporte:</strong> Permite que los nutrientes viajen mediante corrientes internas llamadas <em>ciclosis</em>.</li>
+        <li><strong>Soporte acuoso:</strong> En él flotan, se protegen y se mueven todos los demás organelos celulares.
+        </li>
+        <li><strong>Rutas de transporte:</strong> Permite que los nutrientes viajen mediante corrientes internas
+          llamadas <em>ciclosis</em>.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
@@ -190,12 +213,15 @@
         El centro de comando supremo donde se guardan todas las instrucciones de la vida.
       </p>
       <ul class="card-details-list">
-        <li><strong>El Libro del ADN:</strong> Contiene los genes que determinan cómo crece la planta, el tamaño de sus hojas y el color de sus flores.</li>
-        <li><strong>El Nucléolo:</strong> Esa esfera roja en el centro donde se fabrican las piezas clave de los ribosomas.</li>
+        <li><strong>El Libro del ADN:</strong> Contiene los genes que determinan cómo crece la planta, el tamaño de sus
+          hojas y el color de sus flores.</li>
+        <li><strong>El Nucléolo:</strong> Esa esfera roja en el centro donde se fabrican las piezas clave de los
+          ribosomas.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
-        Si estiráramos el ADN microscópico guardado dentro de un solo núcleo vegetal, ¡mediría casi 2 metros de longitud!
+        Si estiráramos el ADN microscópico guardado dentro de un solo núcleo vegetal, ¡mediría casi 2 metros de
+        longitud!
       </div>
     </article>
 
@@ -210,12 +236,15 @@
         ¡Los organelos más famosos de las plantas! Son los encargados de la fotosíntesis.
       </p>
       <ul class="card-details-list">
-        <li><strong>Paneles de Clorofila:</strong> Tienen un pigmento verde que atrapa la energía luminosa del sol como un panel solar vivo.</li>
-        <li><strong>Fabrican comida y oxígeno:</strong> Convierten luz, agua y dióxido de carbono en azúcares (glucosa) y liberan el oxígeno que respiramos.</li>
+        <li><strong>Paneles de Clorofila:</strong> Tienen un pigmento verde que atrapa la energía luminosa del sol como
+          un panel solar vivo.</li>
+        <li><strong>Fabrican comida y oxígeno:</strong> Convierten luz, agua y dióxido de carbono en azúcares (glucosa)
+          y liberan el oxígeno que respiramos.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
-        ¡Las plantas son verdes debido a la clorofila de sus cloroplastos! Sin ellos, la vida en la Tierra no tendría oxígeno suficiente.
+        ¡Las plantas son verdes debido a la clorofila de sus cloroplastos! Sin ellos, la vida en la Tierra no tendría
+        oxígeno suficiente.
       </div>
     </article>
 
@@ -230,12 +259,15 @@
         Una enorme bolsa acuosa que puede ocupar hasta el 80% del volumen celular.
       </p>
       <ul class="card-details-list">
-        <li><strong>Reserva de agua:</strong> Almacena agua y sales minerales para cuando la planta no recibe riego.</li>
-        <li><strong>Efecto Inflable (Turgencia):</strong> Llena de agua empuja las paredes celulares como un globo inflado, manteniendo erguida a la planta.</li>
+        <li><strong>Reserva de agua:</strong> Almacena agua y sales minerales para cuando la planta no recibe riego.
+        </li>
+        <li><strong>Efecto Inflable (Turgencia):</strong> Llena de agua empuja las paredes celulares como un globo
+          inflado, manteniendo erguida a la planta.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
-        ¿Has visto cómo se marchita una planta cuando tiene sed? Es porque su vacuola se vació. ¡Al regarla, la vacuola se infla y la planta se levanta!
+        ¿Has visto cómo se marchita una planta cuando tiene sed? Es porque su vacuola se vació. ¡Al regarla, la vacuola
+        se infla y la planta se levanta!
       </div>
     </article>
 
@@ -250,12 +282,15 @@
         Las baterías recargables que producen la energía vital que la célula gasta día y noche.
       </p>
       <ul class="card-details-list">
-        <li><strong>Respiración Celular:</strong> Queman los azúcares producidos por los cloroplastos para transformarlos en energía química pura (ATP).</li>
-        <li><strong>Trabajo 24 horas:</strong> Proveen energía continua para que la planta crezca, florezca y repare sus tejidos.</li>
+        <li><strong>Respiración Celular:</strong> Queman los azúcares producidos por los cloroplastos para
+          transformarlos en energía química pura (ATP).</li>
+        <li><strong>Trabajo 24 horas:</strong> Proveen energía continua para que la planta crezca, florezca y repare sus
+          tejidos.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
-        ¡Tienen su propio ADN independiente! Los científicos descubrieron que hace millones de años eran bacterias libres que se unieron a la célula.
+        ¡Tienen su propio ADN independiente! Los científicos descubrieron que hace millones de años eran bacterias
+        libres que se unieron a la célula.
       </div>
     </article>
 
@@ -270,12 +305,15 @@
         Una pila de saquitos aplanados que empaca, etiqueta y distribuye sustancias químicas.
       </p>
       <ul class="card-details-list">
-        <li><strong>Centro de Empaque:</strong> Recibe proteínas, las perfecciona y las guarda en pequeñas cajitas esféricas llamadas vesículas.</li>
-        <li><strong>Envíos a Domicilio:</strong> Reparte esas vesículas hacia donde se necesiten dentro de la célula o hacia la pared celular.</li>
+        <li><strong>Centro de Empaque:</strong> Recibe proteínas, las perfecciona y las guarda en pequeñas cajitas
+          esféricas llamadas vesículas.</li>
+        <li><strong>Envíos a Domicilio:</strong> Reparte esas vesículas hacia donde se necesiten dentro de la célula o
+          hacia la pared celular.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
-        Lleva el nombre de Camillo Golgi, un científico italiano que lo descubrió en su microscopio hace más de 125 años.
+        Lleva el nombre de Camillo Golgi, un científico italiano que lo descubrió en su microscopio hace más de 125
+        años.
       </div>
     </article>
 
@@ -290,12 +328,14 @@
         Un laberinto de membranas y túneles que abraza al núcleo y recorre el citoplasma.
       </p>
       <ul class="card-details-list">
-        <li><strong>Rugoso (con bolitas):</strong> Está tapizado de ribosomas y se dedica a fabricar proteínas de alta calidad.</li>
+        <li><strong>Rugoso (con bolitas):</strong> Está tapizado de ribosomas y se dedica a fabricar proteínas de alta
+          calidad.</li>
         <li><strong>Liso (sin bolitas):</strong> Fabrica lípidos (grasas buenas) y ayuda a desintoxicar la célula.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
-        Funciona como una autopista de salida rápida conectada directamente al núcleo para transportar materiales a toda velocidad.
+        Funciona como una autopista de salida rápida conectada directamente al núcleo para transportar materiales a toda
+        velocidad.
       </div>
     </article>
 
@@ -311,7 +351,8 @@
       </p>
       <ul class="card-details-list">
         <li><strong>Leen el manual:</strong> Reciben mensajes directos del ADN y los leen letra por letra.</li>
-        <li><strong>Ensamblan proteínas:</strong> Unen piezas de aminoácidos como si fueran bloques de LEGO para construir proteínas indispensables para la vida.</li>
+        <li><strong>Ensamblan proteínas:</strong> Unen piezas de aminoácidos como si fueran bloques de LEGO para
+          construir proteínas indispensables para la vida.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
@@ -330,12 +371,15 @@
         Estructura especializada en almacenar almidón y reservas de energía para la planta.
       </p>
       <ul class="card-details-list">
-        <li><strong>Bodega de reservas:</strong> Convierte la glucosa fabricada en la fotosíntesis en granos de almidón compacto y duradero.</li>
-        <li><strong>Vital en raíces y tubérculos:</strong> Es el organelo que llena de energía y nutrientes a las papas, semillas y frutos.</li>
+        <li><strong>Bodega de reservas:</strong> Convierte la glucosa fabricada en la fotosíntesis en granos de almidón
+          compacto y duradero.</li>
+        <li><strong>Vital en raíces y tubérculos:</strong> Es el organelo que llena de energía y nutrientes a las papas,
+          semillas y frutos.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
-        ¡Gracias a los amiloplastos podemos comer papas, arroz y pan, ya que guardan todo el almidón vegetal que nos alimenta!
+        ¡Gracias a los amiloplastos podemos comer papas, arroz y pan, ya que guardan todo el almidón vegetal que nos
+        alimenta!
       </div>
     </article>
 
@@ -350,12 +394,15 @@
         Una pequeña vesícula limpiadora encargada de proteger y desintoxicar a la célula.
       </p>
       <ul class="card-details-list">
-        <li><strong>Filtro protector:</strong> Neutraliza sustancias tóxicas como el peróxido de hidrógeno y las transforma en agua pura y oxígeno.</li>
-        <li><strong>Auxiliar en la fotosíntesis:</strong> Ayuda a reciclar compuestos durante la fotorrespiración en las hojas verdes.</li>
+        <li><strong>Filtro protector:</strong> Neutraliza sustancias tóxicas como el peróxido de hidrógeno y las
+          transforma en agua pura y oxígeno.</li>
+        <li><strong>Auxiliar en la fotosíntesis:</strong> Ayuda a reciclar compuestos durante la fotorrespiración en las
+          hojas verdes.</li>
       </ul>
       <div class="card-fun-fact">
         <div class="fun-fact-label">💡 Dato Curioso</div>
-        Contiene una enzima llamada <em>catalasa</em> tan rápida que puede descomponer millones de moléculas tóxicas en un solo segundo.
+        Contiene una enzima llamada <em>catalasa</em> tan rápida que puede descomponer millones de moléculas tóxicas en
+        un solo segundo.
       </div>
     </article>
 
@@ -363,7 +410,7 @@
 
   <!-- Scroll Runway (Triggers Scrollytelling Transitions) -->
   <main class="scroll-runway">
-    
+
     <!-- Trigger 0: Hero Section with Live 3D Plant -->
     <section class="scroll-step-trigger hero-step-trigger" id="step-hero" data-step="hero">
       <div class="hero-badge">
@@ -374,7 +421,7 @@
         <span>Célula Vegetal</span>
       </h1>
       <p class="hero-description">
-        Descubre cómo las plantas respiran, se alimentan y se mantienen firmes. 
+        Descubre cómo las plantas respiran, se alimentan y se mantienen firmes.
         Desliza hacia abajo para hacer un zoom microscópico y explorar su estructura en 3D.
       </p>
 
@@ -397,7 +444,7 @@
       <div class="scroll-indicator-cue">
         <span>Desliza para entrar a la célula</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 5v14M19 12l-7 7-7-7"/>
+          <path d="M12 5v14M19 12l-7 7-7-7" />
         </svg>
       </div>
     </section>
@@ -478,8 +525,8 @@
     <footer class="presentation-footer">
       <p class="footer-title">Proyecto Escolar: <strong>La Célula Vegetal y sus Organelos</strong></p>
       <p class="footer-student">Presentado por: <strong>Luna María Estrada Nieto - 1° "D"</strong></p>
-      <p class="footer-school">Desarrollado con fines didácticos y educativos por <strong>Angel Estrada</strong> y su hija <strong>Luna María Estrada Nieto</strong></p>
-      <p class="footer-school" style="font-size: 0.78rem; opacity: 0.85; margin-top: 0.35rem;">Materia de Ciencias • Escuela Secundaria Federal #60 • Asistido por LLM con propósitos educativos</p>
+      <p class="footer-school" style="font-size: 0.78rem; opacity: 0.85; margin-top: 0.35rem;">Materia de Ciencias •
+        Escuela Secundaria Federal #60 • Asistido por LLM con propósitos educativos</p>
     </footer>
 
   </main>
@@ -538,4 +585,5 @@
   <!-- Application Controller -->
   <script src="js/app.js"></script>
 </body>
+
 </html>
