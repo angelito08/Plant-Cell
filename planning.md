@@ -732,6 +732,24 @@ A partir de la captura del inspector de DevTools enviada por el usuario (`media_
 * **Transición Limpia:** Al expandir o colapsar con los botones `"Mostrar"` / `"Ocultar"`, el contenido mantiene su alineación horizontal estricta sin saltos ni desfasajes.
 * **Sintaxis:** Validación CSS y JS con 0 errores.
 
+---
+
+## 25. Despliegue y Control de Versiones en GitHub
+
+### 25.1 Registro de Cambios Empaquetados
+Se prepararon y cargaron todos los ajustes realizados en la iteración:
+* `index.html`: Estructura semántica, favicon SVG plano, 12 organelos y textos de dato curioso escolares sin "Escolar".
+* `css/styles.css`: Paleta de alto contraste escolar azul cobalto (`#1e40af` / `#1d4ed8`), erradicación de neones, píldora HUD en una línea, círculo verde con dimensión geométrica fija, y paddings unificados idénticos tanto en modo compacto como en modo extendido.
+* `js/app.js`: Reencuadre 3D de la planta en la portada para liberar el título, botones concisos `"Mostrar"` y `"Ocultar"`, y materiales de foamy mate con rugosidad física PBR.
+* `README.md`: Documentación del sistema en inglés actualizada con las características didácticas y paleta de la maqueta física.
+* `planning.md`: Bitácora completa y detallada de diseño, decisiones y arquitectura en español.
+
+### 25.2 Confirmación de Despliegue
+* **Commit:** `a2528f0` (`feat: adapt theme to school diorama with high-contrast WCAG AAA palette, zero neon, and optimized HUD cards`).
+* **Repositorio Remoto:** `https://github.com/angelito08/Plant-Cell.git` (Rama `main`).
+* **Estado:** Árbol de trabajo 100% limpio y sincronizado con `origin/main`.
+
+
 
 
 
