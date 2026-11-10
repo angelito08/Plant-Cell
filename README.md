@@ -1,8 +1,9 @@
-# Interactive Plant Cell Scrollytelling Experience
+# Interactive Plant Cell Scrollytelling Experience — Minimalist & Didactic 3D
 
-An interactive, high-performance 3D web presentation created for **Luna María Estrada Nieto** for her **Ciencias (Science)** class at **Escuela Secundaria Federal #60**. The application features an immersive **Three.js WebGL engine** that executes a smooth **macro-to-micro flight** from a 3D potted botanical plant directly into a cutaway 3D plant cell with true volume, thickness, and bioluminescent depth lighting.
+An interactive, high-performance 3D web presentation created for **Luna María Estrada Nieto** for her **Ciencias (Science)** class at **Escuela Secundaria Federal #60** (Group **1° "D"**). The application features an immersive **Three.js WebGL engine** designed with a **clean, minimalist, and didactic aesthetic** that uses the color palette from Luna's physical school model (lime green, canary yellow, ruby red, sky blue, magenta, orange, and purple) with soft museum lighting and zero futuristic neon clutter.
 
 * **Student Presenter:** Luna María Estrada Nieto
+* **Grade & Group:** 1° "D"
 * **School:** Escuela Secundaria Federal #60
 * **Subject:** Ciencias (Biology / Natural Sciences)
 * **Target Audience:** Middle School / Secondary Education (12-year-old students)
@@ -11,64 +12,69 @@ An interactive, high-performance 3D web presentation created for **Luna María E
 
 ## 🌟 Key Features
 
-1. **Macro-to-Micro 3D Journey (Plant to Cell Zoom):**
-   - Starts with a stylized 3D potted plant with glowing leaf blades and morning dew drops.
-   - Scrolling triggers a cinematic microscope zoom diving through the leaf cuticle and plant tissue directly into the cellular cutaway.
+1. **Strict 100% Light Mode & White Studio Canvas:**
+   - Designed exclusively for daylight classrooms and educational projectors on a clean, bright white background (`#ffffff`).
+   - Zero dark mode toggles or fallbacks, ensuring total aesthetic consistency and crisp readability.
 
-2. **Full-Viewport 3D Plant Cell Cutaway & Anatomical Windows:**
-   - Real 3D volume, thick beveled walls showing structural layers, translucent glassy vacuole, spherical nucleus with glowing nucleolus, chloroplast discs with internal thylakoid grana stacks, mitochondria with cristae rings, Golgi cisternae, and golden ribosomes.
-   - Built on pure Three.js with hardware-accelerated PBR shaders and dynamic point lights (emerald, cyan, violet, amber).
+2. **Physical Craft "Foamy" (EVA Foam) Materials & Zero Neon:**
+   - Eradicates all sci-fi neon glows, emissive blooms, and laser lighting.
+   - Every organelle is rendered with high-roughness physical PBR materials (`roughness: 0.75 - 0.85`, `metalness: 0.0`) recreating the tactile, vivid cutouts of EVA foam (foamy) from Luna's handcrafted diorama.
 
-3. **Procedural Biological Textures (Zero-Download Bump & Roughness Maps):**
-   - High-resolution algorithmic textures rendered in-memory via HTML5 Canvas (100% offline, zero network requests):
-     - *Cell Wall:* Interwoven cellulose microfibrils with physical bump relief.
-     - *Plasma Membrane:* Phospholipid bilayer grain surface.
-     - *Central Vacuole:* Fluid aqueous caustics with refractive specular reflections.
-     - *Nucleus & Nucleolus:* Nuclear pore complexes and condensed chromatin stipples.
-     - *Chloroplasts & Mitochondria:* Thylakoid grana striations and mitochondrial cristae folds.
-     - *Golgi & Reticulum:* Tubulo-laminar membrane cisternae with secretory vesicles.
+3. **Accurate Craft Color Palette from Luna's Model (Rich Saturated Contrast):**
+   - **Hexagonal Prism Cell Wall:** Forest-green foamy walls (`#15803d`) with emerald-green rim (`#22c55e`) and deep teal corner tabs (`#0f766e`).
+   - **Cytoplasm Floor:** Vivid grass-green foamy base (`#16a34a`).
+   - **Nucleus & Nucleolus:** Deep golden amber cylinder cutaway (`#d97706` / `#b45309`) with a solid crimson nucleolus core (`#b91c1c`).
+   - **Central Vacuole:** Vibrant cerulean blue foam body (`#0284c7`) with a deep royal navy base outline (`#1e3a8a`).
+   - **Mitochondria:** Deep magenta foam capsules (`#be185d`) with vivid rose-pink cristae folds (`#f472b6`).
+   - **Chloroplasts:** Dark pine green foam discs (`#14532d`) with saturated lime ridge bands (`#22c55e`).
+   - **Golgi Apparatus:** Warm tangerine orange foam layers (`#c2410c`) with budding transport vesicles.
+   - **Endoplasmic Reticulum:** Royal purple folded foam ribbons (`#6d28d9`) surrounding the nucleus.
+   - **Ribosomes:** Vibrant scarlet red foam beads (`#b91c1c`).
+   - **Amyloplast:** Deep violet coiled foam roll (`#581c87`) with purple core (`#9333ea`).
+   - **Peroxisome:** Deep pine teal foam sphere (`#0f766e`) with turquoise collar ring (`#14b8a6`).
 
-4. **Dynamic Spotlight, 3D Halo Beacon & Selective Dimming:**
-   - **Cinematic Spotlight Tracking:** A calibrated 3D `SpotLight` and `PointLight` pair glides to the active organelle in 3D coordinates, bathing it in focused illumination.
-   - **Bioluminescent 3D Beacon:** A dual-concentric rotating ring halo with orbiting diamond pips hovers above the active organelle as a visual target guide.
-   - **Selective Background Dimming:** Inactive organelles automatically reduce opacity to 22% and dim their emissive intensity, creating high contrast that directs the audience's attention straight to the discussed organelle.
+4. **Dynamic Selective Transparency on Focus:**
+   - When any organelle is selected/focused, all inactive organelles automatically become translucent (`opacity: 0.14 - 0.22`), leaving an elegant structural silhouette.
+   - The active organelle remains 100% solid and opaque (`opacity: 1.0`), illuminated with neutral white spotlighting (`0xffffff`) for maximum visual contrast.
+   - In overview, hero, or quiz stages, all organelles automatically return to 100% solid opacity.
 
-5. **Floating HUD Narrative Cards (On-Demand Appearance):**
-   - Cards smoothly fade in and elevate when arriving at an organelle, and fade out cleanly during camera transitions between organelles, leaving the 3D view completely unobstructed.
+5. **Smooth Macro-to-Micro 3D Flight (Plant to Cell Zoom):**
+   - Starts with a stylized potted botanical plant with terracotta pot and leafy green foliage.
+   - Scrolling triggers a smooth microscope flight traveling through the leaf tissue directly into the cellular interior.
 
-6. **Interactive 3D Tilt & Orientation:**
-   - The student presenter or teacher can gently touch or drag on the screen to tilt the cell in 3D (+- 25 degrees) to explore its volume from custom angles.
+6. **Universal Responsive Architecture (Tablets & Smartphones):**
+   - **Compact by Default:** On mobile and tablet devices, HUD cards open in compact mode (`is-compact`), keeping over 85% of the screen free to rotate and explore the 3D cell.
+   - **Full Expand without Scroll:** Tapping the card expands it with ample vertical room (`max-height: min(72dvh, 560px)`), allowing students to read the full summary, bullet points, and fun fact without needing internal scrolling.
+   - **One-Tap Peek:** Quick toggle between full educational text and unobstructed 3D viewing.
 
-7. **Didactic & Age-Appropriate Content:**
-   - Specifically tailored for a 12-year-old presenter to speak clearly and naturally without memorizing complex jargon.
-   - Includes everyday analogies (*e.g., "The Castle Wall", "The Solar Kitchen", "The Water Tank"*), concise bullet points, and school fun facts (*"¿Sabías qué?"*).
+7. **Interactive 3D Tilt & Orientation:**
+   - Touch and drag gestures allow the student or teacher to orbit the cell in 3D (±25 degrees) to explore its depth and structure from custom angles.
 
-8. **Presenter Quick-Jump Dock:**
-   - Bottom pill dock for instant gliding to any organelle or the quiz if a teacher asks questions out of sequence.
+8. **Presenter Quick-Jump Dock (12 Organelles + Quiz):**
+   - Color-coded bottom dock pills for instant gliding between organelles and the interactive quiz.
 
 9. **Interactive Classroom Quiz ("Desafío Celular"):**
    - 4-question review game with instant feedback and synthesized Web Audio victory chimes (100% offline, zero audio file dependencies).
 
-10. **100% Offline Capable & Tablet-Optimized:**
-    - Bundles local Three.js (`js/vendor/three.min.js`), ensuring flawless presentation performance even without internet connection at school.
-    - Fluid 60 FPS guaranteed on iPads, Android tablets, and projection laptops.
-
 ---
 
-## 🔬 Organelle Coverage & Educational Analogies
+## 🔬 Complete Organelle Coverage (12 Organelles)
 
-| Organelle | Spanish Name | Everyday Metaphor | Key Function |
-| :--- | :--- | :--- | :--- |
-| **Cell Wall** | Pared Celular | *La Muralla del Castillo* | Rigid cellulose armor providing structural support without bones. |
-| **Plasma Membrane** | Membrana Plasmática | *El Guardia de la Puerta* | Intelligent barrier regulating what enters and leaves the cell. |
-| **Cytoplasm** | Citoplasma | *La Alberca de Gelatina* | Aqueous gel supporting all organelles and enabling streaming flow. |
-| **Nucleus & Nucleolus** | Núcleo y Nucléolo | *El Director y su Libro Secreto* | Central command center housing genetic DNA instructions. |
-| **Chloroplasts** | Cloroplastos | *Las Cocinas Solares* | Photosynthetic green power plants converting sunlight into glucose and oxygen. |
-| **Central Vacuole** | Vacuola Central | *El Gran Tinaco de Agua* | Massive fluid reservoir generating turgor pressure to keep the plant upright. |
-| **Mitochondria** | Mitocondrias | *La Central Eléctrica* | Cellular power plants turning nutrients into ATP energy 24/7. |
-| **Golgi Apparatus** | Aparato de Golgi | *La Oficina de Paquetería* | Modifies, packs, labels, and dispatches cellular proteins in vesicles. |
-| **Endoplasmic Reticulum** | Retículo Endoplasmático | *La Gran Fábrica y Autopista* | Membrane labyrinth synthesizing proteins (Rough) and lipids (Smooth). |
-| **Ribosomes** | Ribosomas | *Los Obreros Constructores* | Tiny molecular workers assembling proteins from DNA instructions. |
+| Organelle | Spanish Name | Model Color & Form | Everyday Metaphor | Key Function |
+| :--- | :--- | :--- | :--- | :--- |
+| **Cell Wall** | Pared Celular | Lime-green beveled hexagonal prism (`#4ade80`) | *La Muralla del Castillo* | Rigid cellulose armor providing structural support without bones. |
+| **Plasma Membrane** | Membrana Plasmática | Sky-blue inner boundary liner (`#0284c7`) | *El Guardia de la Puerta* | Intelligent barrier regulating what enters and leaves the cell. |
+| **Cytoplasm** | Citoplasma | Light grass-green base floor (`#86efac`) | *La Alberca de Gelatina* | Aqueous gel supporting all organelles and enabling streaming flow. |
+| **Nucleus** | Núcleo | Canary-yellow half-sphere cutaway (`#facc15`) | *El Director y su Libro Secreto* | Central command center housing genetic DNA instructions. |
+| **Nucleolus** | Nucléolo | Bright ruby-red sphere inside core (`#ef4444`) | *El Taller del Núcleo* | Synthesizes ribosomal RNA and initiates ribosome production. |
+| **Chloroplasts** | Cloroplastos | Deep-green oval discs with ridges (`#15803d` / `#4ade80`) | *Las Cocinas Solares* | Photosynthetic green power plants converting sunlight into glucose and oxygen. |
+| **Central Vacuole** | Vacuola Central | Sky-blue lobed reservoir with blue base (`#38bdf8` / `#1d4ed8`) | *El Gran Tinaco de Agua* | Massive fluid reservoir generating turgor pressure to keep the plant upright. |
+| **Mitochondria** | Mitocondrias | Magenta capsule with light-pink folds (`#ec4899` / `#fbcfe8`) | *La Central Eléctrica* | Cellular power plants turning nutrients into ATP energy 24/7. |
+| **Golgi Apparatus** | Aparato de Golgi | 5 horizontal corrugated orange layers (`#f97316`) | *La Oficina de Paquetería* | Modifies, packs, labels, and dispatches cellular proteins in vesicles. |
+| **Endoplasmic Reticulum** | Retículo Endoplasmático | Purple accordion strips around nucleus (`#7c3aed`) | *La Gran Fábrica y Autopista* | Membrane labyrinth synthesizing proteins (Rough) and lipids (Smooth). |
+| **Ribosomes** | Ribosomas | Coral-red dots studded on ER folds (`#f43f5e`) | *Los Obreros Constructores* | Tiny molecular workers assembling proteins from DNA instructions. |
+| **Amyloplast** | Amiloplasto | Violet/purple spiral rolled coil (`#8b5cf6`) | *El Almacén de Almidón* | Synthesizes and stores compact starch granules for energy reserve. |
+| **Peroxisome** | Peroxisoma | Teal vesicle sphere with collar ring (`#0d9488`) | *El Filtro de Desintoxicación* | Neutralizes hazardous peroxides and aids photorespiration in green leaves. |
 
 ---
 
@@ -76,11 +82,13 @@ An interactive, high-performance 3D web presentation created for **Luna María E
 
 ```text
 /Applications/MAMP/htdocs/Plant-Cell/
-├── index.html          # Semantic HTML5 structure & SVG vector cell illustration
+├── index.html          # Semantic HTML5 structure, HUD cards (00-12), and clean presentation header
 ├── css/
-│   └── styles.css      # Bioluminescent theme, layout, glassmorphism & animation timings
+│   └── styles.css      # Minimalist didactic theme, responsive bottom sheet cards & smooth timings
 ├── js/
-│   └── app.js          # IntersectionObserver engine, SVG camera controller, quiz & audio
+│   ├── app.js          # Three.js 3D WebGL controller, clean museum lighting, quiz & audio
+│   └── vendor/
+│       └── three.min.js# Offline Three.js r128 WebGL library
 ├── planning.md         # Spanish project log & pedagogical breakdown
 └── README.md           # Technical system documentation (English)
 ```
@@ -130,5 +138,4 @@ http://localhost:8888/Plant-Cell/
 ## ♿ Accessibility & Performance
 
 - **`prefers-reduced-motion`:** Supports accessibility media query by suppressing intensive looping animations and continuous transitions for sensitive users.
-- **Hardware Acceleration:** Animations prioritize `transform` and `opacity` properties to prevent CPU layout reflows and battery drain on portable devices.
-- **Scalable Vector Graphics (SVG):** Crisp render on High-DPI / Retina displays at any zoom factor.
+- **Hardware Acceleration:** WebGL and CSS animations prioritize `transform` and `opacity` properties to prevent CPU layout reflows and battery drain on portable devices.

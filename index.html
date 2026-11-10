@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>La Célula Vegetal 3D | Luna María Estrada Nieto - Secundaria Federal #60</title>
+  <title>La Célula Vegetal | Luna María Estrada Nieto - Secundaria Federal #60</title>
   <meta name="description" content="Presentación interactiva 3D con zoom de planta a célula vegetal por Luna María Estrada Nieto para la materia de Ciencias en la Escuela Secundaria Federal #60.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='8' fill='%2315803d'/%3E%3Cpath d='M18 27v-9' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M18 18c-2.5-3-6-3.5-8-3.5 0 3 1.5 6.5 4.5 7.5 1.5.5 3 0 3.5-.5' fill='%23ffffff' fill-opacity='0.4' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M18 15c2.5-3 6-3.5 8-3.5 0 3-1.5 6.5-4.5 7.5-1.5.5-3 0-3.5-.5' fill='%23ffffff' fill-opacity='0.4' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   
   <!-- Google Fonts for Modern Scientific Aesthetic -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,10 +26,16 @@
   <!-- Top Header with Progress Bar and Presenter Controls -->
   <header class="presentation-header" id="main-header">
     <div class="brand-wrapper">
-      <div class="brand-icon">🌱</div>
+      <div class="brand-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22v-9"/>
+          <path d="M12 13c-2.5-3-6-3.5-8-3.5 0 3 1.5 6.5 4.5 7.5 1.5.5 3 0 3.5-.5" fill="#ffffff" fill-opacity="0.35"/>
+          <path d="M12 10c2.5-3 6-3.5 8-3.5 0 3-1.5 6.5-4.5 7.5-1.5.5-3 0-3.5-.5" fill="#ffffff" fill-opacity="0.35"/>
+        </svg>
+      </div>
       <div>
-        <span class="brand-title">Célula Vegetal 3D</span>
-        <span class="brand-subtitle">Secundaria Federal #60</span>
+        <span class="brand-title">Célula Vegetal</span>
+        <span class="brand-subtitle">Secundaria Federal #60 • 1° "D"</span>
       </div>
     </div>
 
@@ -60,7 +67,7 @@
   <div class="hud-cards-stage" aria-live="polite">
 
     <!-- Card 0: Macro to Micro Zoom -->
-    <article class="hud-card" data-card="zoom-leaf" style="--card-theme-color: #38ef7d;">
+    <article class="hud-card" data-card="zoom-leaf" style="--card-theme-color: #15803d;">
       <div class="card-header">
         <span class="step-number">ZOOM</span>
         <span class="card-analogy-badge">🔬 Viaje Microscópico</span>
@@ -74,18 +81,18 @@
         <li><strong>Atravesando los tejidos:</strong> Cruzamos la cutícula protectora para entrar al fascinante mundo celular interior.</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         ¡En una sola hoja de árbol caben más de 50 millones de células vegetales trabajando en equipo!
       </div>
     </article>
 
     <!-- Card Overview: 3D Plant Cell Cutaway -->
-    <article class="hud-card" data-card="overview" style="--card-theme-color: #38ef7d;">
+    <article class="hud-card" data-card="overview" style="--card-theme-color: #16a34a;">
       <div class="card-header">
-        <span class="step-number">00 / 10</span>
+        <span class="step-number">00 / 12</span>
         <span class="card-analogy-badge">🏙️ La Ciudad Celular</span>
       </div>
-      <h2 class="card-title">Célula Vegetal 3D</h2>
+      <h2 class="card-title">Célula Vegetal</h2>
       <p class="card-quick-summary">
         ¡Llegamos al nivel celular! Observa el corte transversal con todos los organelos en 3D.
       </p>
@@ -94,15 +101,15 @@
         <li><strong>Organelos en acción:</strong> Cada estructura cumple una misión indispensable para mantener viva y nutrida a la planta.</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         La célula vegetal es completamente autosuficiente: ¡puede fabricar su propia comida usando solo agua, aire y luz solar!
       </div>
     </article>
 
     <!-- Card 1: Cell Wall -->
-    <article class="hud-card" data-card="cell-wall" style="--card-theme-color: #38ef7d;">
+    <article class="hud-card" data-card="cell-wall" style="--card-theme-color: #15803d;">
       <div class="card-header">
-        <span class="step-number">01 / 10</span>
+        <span class="step-number">01 / 12</span>
         <span class="card-analogy-badge">🛡️ La Muralla del Castillo</span>
       </div>
       <h2 class="card-title">Pared Celular</h2>
@@ -114,15 +121,15 @@
         <li><strong>Hecha de Celulosa:</strong> Fibras vegetales súper resistentes (¡el mismo componente con el que fabricamos el papel!).</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         ¡Solo las plantas, hongos y algas tienen pared celular! Los animales y humanos no la tenemos, por eso nuestra piel es suave y flexible.
       </div>
     </article>
 
     <!-- Card 2: Plasma Membrane -->
-    <article class="hud-card" data-card="membrane" style="--card-theme-color: #00f2fe;">
+    <article class="hud-card" data-card="membrane" style="--card-theme-color: #0284c7;">
       <div class="card-header">
-        <span class="step-number">02 / 10</span>
+        <span class="step-number">02 / 12</span>
         <span class="card-analogy-badge">👮 El Guardia de Seguridad</span>
       </div>
       <h2 class="card-title">Membrana Plasmática</h2>
@@ -134,15 +141,15 @@
         <li><strong>Permeabilidad selectiva:</strong> Funciona exactamente como el policía en la puerta de una escuela.</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         Es extremadamente delgada (miles de veces más fina que un cabello), pero contiene sensores para avisar a la célula si la planta tiene sed.
       </div>
     </article>
 
     <!-- Card 3: Cytoplasm -->
-    <article class="hud-card" data-card="cytoplasm" style="--card-theme-color: #4facfe;">
+    <article class="hud-card" data-card="cytoplasm" style="--card-theme-color: #16a34a;">
       <div class="card-header">
-        <span class="step-number">03 / 10</span>
+        <span class="step-number">03 / 12</span>
         <span class="card-analogy-badge">🏊 La Alberca de Gelatina</span>
       </div>
       <h2 class="card-title">Citoplasma</h2>
@@ -154,15 +161,15 @@
         <li><strong>Rutas de transporte:</strong> Permite que los nutrientes viajen mediante corrientes internas llamadas <em>ciclosis</em>.</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         ¡Está compuesto por más del 80% de agua pura con sales minerales y proteínas disueltas!
       </div>
     </article>
 
     <!-- Card 4: Nucleus & Nucleolus -->
-    <article class="hud-card" data-card="nucleus" style="--card-theme-color: #d946ef;">
+    <article class="hud-card" data-card="nucleus" style="--card-theme-color: #b45309;">
       <div class="card-header">
-        <span class="step-number">04 / 10</span>
+        <span class="step-number">04 / 12</span>
         <span class="card-analogy-badge">🧠 El Cerebro y Director</span>
       </div>
       <h2 class="card-title">Núcleo y Nucléolo</h2>
@@ -171,18 +178,18 @@
       </p>
       <ul class="card-details-list">
         <li><strong>El Libro del ADN:</strong> Contiene los genes que determinan cómo crece la planta, el tamaño de sus hojas y el color de sus flores.</li>
-        <li><strong>El Nucléolo:</strong> Esa esfera brillante en el centro donde se fabrican las piezas clave de los ribosomas.</li>
+        <li><strong>El Nucléolo:</strong> Esa esfera roja en el centro donde se fabrican las piezas clave de los ribosomas.</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         Si estiráramos el ADN microscópico guardado dentro de un solo núcleo vegetal, ¡mediría casi 2 metros de longitud!
       </div>
     </article>
 
     <!-- Card 5: Chloroplasts -->
-    <article class="hud-card" data-card="chloroplasts" style="--card-theme-color: #10b981;">
+    <article class="hud-card" data-card="chloroplasts" style="--card-theme-color: #15803d;">
       <div class="card-header">
-        <span class="step-number">05 / 10</span>
+        <span class="step-number">05 / 12</span>
         <span class="card-analogy-badge">☀️ Las Cocinas Solares</span>
       </div>
       <h2 class="card-title">Cloroplastos</h2>
@@ -194,15 +201,15 @@
         <li><strong>Fabrican comida y oxígeno:</strong> Convierten luz, agua y dióxido de carbono en azúcares (glucosa) y liberan el oxígeno que respiramos.</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         ¡Las plantas son verdes debido a la clorofila de sus cloroplastos! Sin ellos, la vida en la Tierra no tendría oxígeno suficiente.
       </div>
     </article>
 
     <!-- Card 6: Central Vacuole -->
-    <article class="hud-card" data-card="vacuole" style="--card-theme-color: #00b4d8;">
+    <article class="hud-card" data-card="vacuole" style="--card-theme-color: #0284c7;">
       <div class="card-header">
-        <span class="step-number">06 / 10</span>
+        <span class="step-number">06 / 12</span>
         <span class="card-analogy-badge">💧 El Gran Tinaco de Agua</span>
       </div>
       <h2 class="card-title">Vacuola Central</h2>
@@ -214,15 +221,15 @@
         <li><strong>Efecto Inflable (Turgencia):</strong> Llena de agua empuja las paredes celulares como un globo inflado, manteniendo erguida a la planta.</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         ¿Has visto cómo se marchita una planta cuando tiene sed? Es porque su vacuola se vació. ¡Al regarla, la vacuola se infla y la planta se levanta!
       </div>
     </article>
 
     <!-- Card 7: Mitochondria -->
-    <article class="hud-card" data-card="mitochondria" style="--card-theme-color: #f97316;">
+    <article class="hud-card" data-card="mitochondria" style="--card-theme-color: #be185d;">
       <div class="card-header">
-        <span class="step-number">07 / 10</span>
+        <span class="step-number">07 / 12</span>
         <span class="card-analogy-badge">⚡ La Central Eléctrica</span>
       </div>
       <h2 class="card-title">Mitocondrias</h2>
@@ -234,15 +241,15 @@
         <li><strong>Trabajo 24 horas:</strong> Proveen energía continua para que la planta crezca, florezca y repare sus tejidos.</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         ¡Tienen su propio ADN independiente! Los científicos descubrieron que hace millones de años eran bacterias libres que se unieron a la célula.
       </div>
     </article>
 
     <!-- Card 8: Golgi Apparatus -->
-    <article class="hud-card" data-card="golgi" style="--card-theme-color: #ec4899;">
+    <article class="hud-card" data-card="golgi" style="--card-theme-color: #c2410c;">
       <div class="card-header">
-        <span class="step-number">08 / 10</span>
+        <span class="step-number">08 / 12</span>
         <span class="card-analogy-badge">📦 La Oficina de Paquetería</span>
       </div>
       <h2 class="card-title">Aparato de Golgi</h2>
@@ -254,15 +261,15 @@
         <li><strong>Envíos a Domicilio:</strong> Reparte esas vesículas hacia donde se necesiten dentro de la célula o hacia la pared celular.</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         Lleva el nombre de Camillo Golgi, un científico italiano que lo descubrió en su microscopio hace más de 125 años.
       </div>
     </article>
 
     <!-- Card 9: Endoplasmic Reticulum -->
-    <article class="hud-card" data-card="er" style="--card-theme-color: #8b5cf6;">
+    <article class="hud-card" data-card="er" style="--card-theme-color: #6d28d9;">
       <div class="card-header">
-        <span class="step-number">09 / 10</span>
+        <span class="step-number">09 / 12</span>
         <span class="card-analogy-badge">🏭 La Gran Fábrica y Autopista</span>
       </div>
       <h2 class="card-title">Retículo Endoplasmático</h2>
@@ -274,28 +281,68 @@
         <li><strong>Liso (sin bolitas):</strong> Fabrica lípidos (grasas buenas) y ayuda a desintoxicar la célula.</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         Funciona como una autopista de salida rápida conectada directamente al núcleo para transportar materiales a toda velocidad.
       </div>
     </article>
 
     <!-- Card 10: Ribosomes -->
-    <article class="hud-card" data-card="ribosomes" style="--card-theme-color: #ff2a5f;">
+    <article class="hud-card" data-card="ribosomes" style="--card-theme-color: #b91c1c;">
       <div class="card-header">
-        <span class="step-number">10 / 10</span>
+        <span class="step-number">10 / 12</span>
         <span class="card-analogy-badge">👷 Los Mini Obreros Constructores</span>
       </div>
       <h2 class="card-title">Ribosomas</h2>
       <p class="card-quick-summary">
-        Diminutas esferas de color rubí brillante que actúan como obreros incansables de la célula.
+        Diminutas esferas de color rojo vivo que actúan como obreros incansables de la célula.
       </p>
       <ul class="card-details-list">
         <li><strong>Leen el manual:</strong> Reciben mensajes directos del ADN y los leen letra por letra.</li>
         <li><strong>Ensamblan proteínas:</strong> Unen piezas de aminoácidos como si fueran bloques de LEGO para construir proteínas indispensables para la vida.</li>
       </ul>
       <div class="card-fun-fact">
-        <div class="fun-fact-label">💡 Dato Curioso Escolar</div>
+        <div class="fun-fact-label">💡 Dato Curioso</div>
         ¡Una sola célula vegetal puede tener hasta 10 millones de ribosomas trabajando al mismo tiempo sin descansar!
+      </div>
+    </article>
+
+    <!-- Card 11: Amyloplast -->
+    <article class="hud-card" data-card="amyloplast" style="--card-theme-color: #6b21a8;">
+      <div class="card-header">
+        <span class="step-number">11 / 12</span>
+        <span class="card-analogy-badge">🥔 El Almacén de Almidón</span>
+      </div>
+      <h2 class="card-title">Amiloplasto</h2>
+      <p class="card-quick-summary">
+        Estructura especializada en almacenar almidón y reservas de energía para la planta.
+      </p>
+      <ul class="card-details-list">
+        <li><strong>Bodega de reservas:</strong> Convierte la glucosa fabricada en la fotosíntesis en granos de almidón compacto y duradero.</li>
+        <li><strong>Vital en raíces y tubérculos:</strong> Es el organelo que llena de energía y nutrientes a las papas, semillas y frutos.</li>
+      </ul>
+      <div class="card-fun-fact">
+        <div class="fun-fact-label">💡 Dato Curioso</div>
+        ¡Gracias a los amiloplastos podemos comer papas, arroz y pan, ya que guardan todo el almidón vegetal que nos alimenta!
+      </div>
+    </article>
+
+    <!-- Card 12: Peroxisome -->
+    <article class="hud-card" data-card="peroxisome" style="--card-theme-color: #0f766e;">
+      <div class="card-header">
+        <span class="step-number">12 / 12</span>
+        <span class="card-analogy-badge">🧼 El Equipo de Desintoxicación</span>
+      </div>
+      <h2 class="card-title">Peroxisoma</h2>
+      <p class="card-quick-summary">
+        Una pequeña vesícula limpiadora encargada de proteger y desintoxicar a la célula.
+      </p>
+      <ul class="card-details-list">
+        <li><strong>Filtro protector:</strong> Neutraliza sustancias tóxicas como el peróxido de hidrógeno y las transforma en agua pura y oxígeno.</li>
+        <li><strong>Auxiliar en la fotosíntesis:</strong> Ayuda a reciclar compuestos durante la fotorrespiración en las hojas verdes.</li>
+      </ul>
+      <div class="card-fun-fact">
+        <div class="fun-fact-label">💡 Dato Curioso</div>
+        Contiene una enzima llamada <em>catalasa</em> tan rápida que puede descomponer millones de moléculas tóxicas en un solo segundo.
       </div>
     </article>
 
@@ -307,11 +354,11 @@
     <!-- Trigger 0: Hero Section with Live 3D Plant -->
     <section class="scroll-step-trigger hero-step-trigger" id="step-hero" data-step="hero">
       <div class="hero-badge">
-        <span>🔬</span> Materia de Ciencias • Secundaria Federal #60
+        <span>🔬</span> Materia de Ciencias • 1° "D" • Secundaria Federal #60
       </div>
       <h1 class="hero-title">
         Viaje al Interior de la<br>
-        <span>Célula Vegetal 3D</span>
+        <span>Célula Vegetal</span>
       </h1>
       <p class="hero-description">
         Descubre cómo las plantas respiran, se alimentan y se mantienen firmes. 
@@ -324,7 +371,7 @@
         <div class="presenter-info">
           <span class="presenter-role">Presentado por:</span>
           <strong class="presenter-name">Luna María Estrada Nieto</strong>
-          <span class="presenter-school">Materia de Ciencias • Escuela Secundaria Federal #60</span>
+          <span class="presenter-school">Materia de Ciencias • 1° "D" • Escuela Secundaria Federal #60</span>
         </div>
       </div>
 
@@ -378,7 +425,13 @@
     <!-- Trigger 11: Ribosomes -->
     <section class="scroll-step-trigger" id="step-ribosomes" data-step="ribosomes"></section>
 
-    <!-- Trigger 12: Quiz Section -->
+    <!-- Trigger 12: Amyloplast -->
+    <section class="scroll-step-trigger" id="step-amyloplast" data-step="amyloplast"></section>
+
+    <!-- Trigger 13: Peroxisome -->
+    <section class="scroll-step-trigger" id="step-peroxisome" data-step="peroxisome"></section>
+
+    <!-- Trigger 14: Quiz Section -->
     <section class="quiz-section" id="step-quiz" data-step="quiz">
       <div class="quiz-badge">🎮 Mini Desafío para la Clase</div>
       <h2 class="quiz-title">¿Qué tanto aprendimos hoy?</h2>
@@ -411,7 +464,7 @@
     <!-- Footer -->
     <footer class="presentation-footer">
       <p class="footer-title">Proyecto Escolar: <strong>La Célula Vegetal y sus Organelos</strong></p>
-      <p class="footer-student">Presentado por: <strong>Luna María Estrada Nieto</strong></p>
+      <p class="footer-student">Presentado por: <strong>Luna María Estrada Nieto - 1° "D"</strong></p>
       <p class="footer-school">Materia de Ciencias • Escuela Secundaria Federal #60</p>
     </footer>
 
@@ -419,43 +472,49 @@
 
   <!-- Presenter Floating Dock for Fast Organelle Jumping -->
   <nav class="presenter-dock" aria-label="Navegación Rápida de Presentación">
-    <button class="dock-pill is-active" data-step="hero" data-target="step-hero" style="--pill-color: #38ef7d;">
+    <button class="dock-pill is-active" data-step="hero" data-target="step-hero" style="--pill-color: #15803d;">
       🌱 Planta
     </button>
-    <button class="dock-pill" data-step="overview" data-target="step-overview" style="--pill-color: #38ef7d;">
-      🔬 Célula 3D
+    <button class="dock-pill" data-step="overview" data-target="step-overview" style="--pill-color: #16a34a;">
+      🔬 Célula
     </button>
-    <button class="dock-pill" data-step="cell-wall" data-target="step-cell-wall" style="--pill-color: #38ef7d;">
+    <button class="dock-pill" data-step="cell-wall" data-target="step-cell-wall" style="--pill-color: #15803d;">
       Pared
     </button>
-    <button class="dock-pill" data-step="membrane" data-target="step-membrane" style="--pill-color: #00f2fe;">
+    <button class="dock-pill" data-step="membrane" data-target="step-membrane" style="--pill-color: #0284c7;">
       Membrana
     </button>
-    <button class="dock-pill" data-step="cytoplasm" data-target="step-cytoplasm" style="--pill-color: #4facfe;">
+    <button class="dock-pill" data-step="cytoplasm" data-target="step-cytoplasm" style="--pill-color: #16a34a;">
       Citoplasma
     </button>
-    <button class="dock-pill" data-step="nucleus" data-target="step-nucleus" style="--pill-color: #d946ef;">
+    <button class="dock-pill" data-step="nucleus" data-target="step-nucleus" style="--pill-color: #b45309;">
       Núcleo
     </button>
-    <button class="dock-pill" data-step="chloroplasts" data-target="step-chloroplasts" style="--pill-color: #10b981;">
+    <button class="dock-pill" data-step="chloroplasts" data-target="step-chloroplasts" style="--pill-color: #15803d;">
       Cloroplastos
     </button>
-    <button class="dock-pill" data-step="vacuole" data-target="step-vacuole" style="--pill-color: #00b4d8;">
+    <button class="dock-pill" data-step="vacuole" data-target="step-vacuole" style="--pill-color: #0284c7;">
       Vacuola
     </button>
-    <button class="dock-pill" data-step="mitochondria" data-target="step-mitochondria" style="--pill-color: #f97316;">
+    <button class="dock-pill" data-step="mitochondria" data-target="step-mitochondria" style="--pill-color: #be185d;">
       Mitocondrias
     </button>
-    <button class="dock-pill" data-step="golgi" data-target="step-golgi" style="--pill-color: #ec4899;">
+    <button class="dock-pill" data-step="golgi" data-target="step-golgi" style="--pill-color: #c2410c;">
       Golgi
     </button>
-    <button class="dock-pill" data-step="er" data-target="step-er" style="--pill-color: #8b5cf6;">
+    <button class="dock-pill" data-step="er" data-target="step-er" style="--pill-color: #6d28d9;">
       Retículo
     </button>
-    <button class="dock-pill" data-step="ribosomes" data-target="step-ribosomes" style="--pill-color: #ff2a5f;">
+    <button class="dock-pill" data-step="ribosomes" data-target="step-ribosomes" style="--pill-color: #b91c1c;">
       Ribosomas
     </button>
-    <button class="dock-pill" data-step="quiz" data-target="step-quiz" style="--pill-color: #facc15;">
+    <button class="dock-pill" data-step="amyloplast" data-target="step-amyloplast" style="--pill-color: #6b21a8;">
+      Amiloplasto
+    </button>
+    <button class="dock-pill" data-step="peroxisome" data-target="step-peroxisome" style="--pill-color: #0f766e;">
+      Peroxisoma
+    </button>
+    <button class="dock-pill" data-step="quiz" data-target="step-quiz" style="--pill-color: #b45309;">
       🎯 Quiz
     </button>
   </nav>
